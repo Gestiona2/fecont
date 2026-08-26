@@ -125,12 +125,19 @@ const { hero, credibilidad, portafolio, pertenecer, pagos, transparencia, notici
           <p>{portafolio.credito.descripcion}</p>
 
           <div class="lineas">
+            {/* Dos filas con flex-wrap, no una retícula de columnas fijas: si el
+                visitante tiene el texto ampliado, el monto baja de línea en vez
+                de desbordar la tarjeta. */}
             {portafolio.credito.items.map((l) => (
               <div class="linea">
-                <span class="n">{l.nombre}</span>
-                <span class="m num">{l.monto}</span>
-                <span class="d">{l.detalle}</span>
-                <span class="p num">{l.plazo}</span>
+                <div class="linea-fila">
+                  <span class="n">{l.nombre}</span>
+                  <span class="m num">{l.monto}</span>
+                </div>
+                <div class="linea-fila secundaria">
+                  <span class="d">{l.detalle}</span>
+                  <span class="p num">{l.plazo}</span>
+                </div>
               </div>
             ))}
           </div>

@@ -433,11 +433,26 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .th-enlace i, .th-enlace svg { width: 15px; height: 15px; transition: transform 0.3s ease; }
 .th-enlace:hover i, .th-enlace:hover svg { transform: translateX(4px); }
 
-/* Por debajo de 1100px la tarjeta estorba: el hero ya es alto y el simulador
-   completo está a un scroll de distancia. */
+/* En pantallas angostas la tarjeta pasa debajo del texto y se compacta.
+   No se oculta: es la pieza que más convence, y la Junta va a abrir el
+   enlace desde el celular. */
 @media (max-width: 1100px) {
-  .hero-cuerpo { grid-template-columns: 1fr; gap: 0; }
-  .tarjeta-hero { display: none; }
+  .hero-cuerpo { grid-template-columns: 1fr; gap: 38px; }
+  .tarjeta-hero { max-width: 460px; }
+}
+@media (max-width: 640px) {
+  .tarjeta-hero { padding: 20px 18px; border-radius: 20px; max-width: none; }
+  .th-cab { margin-bottom: 16px; }
+  .th-pregunta { margin-bottom: 10px; }
+  .th-campo { margin-bottom: 14px; }
+  .th-valor { font-size: 1.15rem; }
+  .th-plazo { font-size: 1rem; }
+  .th-resultado { margin-top: 16px; padding-top: 15px; }
+  .th-res-valor { font-size: 2rem; }
+  /* La nota NO se oculta: lleva el aviso de que no es una oferta de crédito
+     y FECONT es una entidad vigilada. Solo se compacta. */
+  .th-nota { margin-top: 10px; font-size: 0.66rem; }
+  .th-enlace { margin-top: 14px; }
 }
 
 /* ============================================================
@@ -518,20 +533,31 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 /* Líneas de crédito */
 .lineas { margin-top: 26px; display: grid; gap: 12px; }
 .linea {
-  display: grid; grid-template-columns: 1fr auto; gap: 8px 18px; align-items: baseline;
   padding: 18px 20px; border-radius: 16px;
   background: var(--surface-2); border: 1px solid transparent;
   transition: border-color 0.3s ease, transform 0.3s cubic-bezier(.2,.7,.2,1);
 }
 .linea:hover { border-color: color-mix(in srgb, var(--turquesa) 55%, transparent); transform: translateX(4px); }
-.linea .n { font-family: var(--font-display); font-weight: 700; font-size: 1rem; }
+
+/* flex-wrap y no una retícula de columnas fijas: con el texto ampliado del
+   navegador, el monto baja de línea en vez de empujar la tarjeta más ancha
+   que la pantalla. Pasó en celular con el escalado de Chrome. */
+.linea-fila {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  justify-content: space-between; gap: 2px 16px;
+}
+.linea-fila.secundaria { margin-top: 5px; }
+.linea .n {
+  font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+  min-width: 0; flex: 1 1 auto;
+}
 .linea .m {
   font-family: var(--font-display); font-weight: 800; font-size: 0.98rem;
-  color: var(--acento-texto); white-space: nowrap;
+  color: var(--acento-texto); white-space: nowrap; flex: 0 0 auto;
 }
-.linea .d { font-size: 0.84rem; color: var(--text-muted); grid-column: 1; }
+.linea .d { font-size: 0.84rem; color: var(--text-muted); min-width: 0; flex: 1 1 auto; }
 .linea .p {
-  font-size: 0.78rem; color: var(--text-muted); grid-column: 2; text-align: right; white-space: nowrap;
+  font-size: 0.78rem; color: var(--text-muted); white-space: nowrap; flex: 0 0 auto;
 }
 @media (max-width: 900px) { .portafolio-grid { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .bloque-producto { padding: 28px 22px; } }
