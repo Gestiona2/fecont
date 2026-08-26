@@ -111,6 +111,17 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .container { width: 100%; max-width: 1220px; margin: 0 auto; padding: 0 28px; }
 section { position: relative; }
+
+/* Un hijo de grid o flex tiene min-width:auto, así que NO se encoge por
+   debajo del ancho mínimo de su contenido. Si adentro hay algo que no puede
+   partirse —un botón con nowrap, un número largo— estira la columna entera y
+   la página se sale de la pantalla. Con el texto ampliado del navegador pasa
+   incluso en retículas de una sola columna. */
+.hero-cuerpo > *, .simulador-caja > *, .portafolio-grid > *, .pertenecer-grid > *,
+.pagos-grid > *, .noticias-grid > *, .sellos > *, .docs > *, .pasos > *,
+.organos > *, .pie-grid > *, .lineas > *, .cuentas > *, .pagos-medios > * {
+  min-width: 0;
+}
 .pad { padding-top: 132px; padding-bottom: 132px; }
 .pad-sm { padding-top: 84px; padding-bottom: 84px; }
 
@@ -378,13 +389,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .tarjeta-hero { animation: none; opacity: 1; }
 }
 
-.th-cab { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.th-cab { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 12px; margin-bottom: 20px; }
 .th-etiqueta {
   font-family: var(--font-display); font-size: 0.68rem; font-weight: 800;
   letter-spacing: 0.18em; text-transform: uppercase; color: var(--turquesa);
 }
 .th-caras {
-  display: flex; gap: 2px; padding: 3px; border-radius: 999px;
+  display: flex; flex-wrap: wrap; gap: 2px; padding: 3px; border-radius: 999px;
   background: rgba(238, 233, 220, 0.08);
 }
 .th-cara-btn {
@@ -551,9 +562,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   font-family: var(--font-display); font-weight: 700; font-size: 1rem;
   min-width: 0; flex: 1 1 auto;
 }
+/* Sin nowrap: con el texto muy ampliado, "Hasta" se separa del número y la
+   cifra sigue entera. Con nowrap se salía de la tarjeta. */
 .linea .m {
   font-family: var(--font-display); font-weight: 800; font-size: 0.98rem;
-  color: var(--acento-texto); white-space: nowrap; flex: 0 0 auto;
+  color: var(--acento-texto); flex: 0 1 auto; text-align: right;
 }
 .linea .d { font-size: 0.84rem; color: var(--text-muted); min-width: 0; flex: 1 1 auto; }
 .linea .p {
@@ -601,7 +614,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 .sim-campo { margin-bottom: 34px; }
 .sim-campo-cab {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 14px;
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: 4px 16px; margin-bottom: 14px;
 }
 .sim-campo-cab label {
   font-family: var(--font-display); font-weight: 700; font-size: 0.9rem; color: var(--text-soft);
@@ -656,7 +670,7 @@ input[type="range"]::-moz-range-thumb {
   display: grid; gap: 12px;
 }
 .sim-desglose .fila {
-  display: flex; justify-content: space-between; gap: 16px;
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 16px;
   font-size: 0.9rem; color: rgba(238, 233, 220, 0.72);
 }
 .sim-desglose .fila strong { color: var(--hueso); font-weight: 700; }
@@ -1021,6 +1035,7 @@ input[type="range"]::-moz-range-thumb {
   .pad-sm { padding-top: 56px; padding-bottom: 56px; }
   .container { padding: 0 20px; }
   .cabecera-seccion { margin-bottom: 44px; }
-  .btn { width: 100%; }
-  .hero-ctas .btn, .cierre-ctas .btn { width: 100%; }
+  /* Sin nowrap en pantalla angosta: con el texto ampliado del navegador, una
+     etiqueta larga que no puede partirse estira el botón fuera de la pantalla. */
+  .btn { width: 100%; white-space: normal; text-align: center; padding: 15px 22px; }
 }
