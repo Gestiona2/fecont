@@ -1,0 +1,132 @@
+---
+/**
+ * Cinta de degradado del hero — la firma visual del sitio.
+ *
+ * Cuatro manchas con los colores del isotipo (turquesa → azul → magenta →
+ * naranja) que se desplazan lento y se mezclan. Encima, un trazo en SVG que
+ * repite el gesto ascendente del logo.
+ *
+ * Se hace con CSS, no con canvas: el desenfoque se rasteriza UNA vez y el
+ * movimiento va por `transform`, así que corre en el compositor sin repintar.
+ * La primera versión dibujaba en canvas con `ctx.filter = blur()` en cada
+ * fotograma y congelaba el hilo principal — el detalle está en
+ * conocimiento/animaciones.md.
+ *
+ * Con prefers-reduced-motion las manchas quedan quietas, no desaparecen.
+ */
+---
+
+<div class="cinta-hero" aria-hidden="true">
+  <span class="mancha m1"></span>
+  <span class="mancha m2"></span>
+  <span class="mancha m3"></span>
+  <span class="mancha m4"></span>
+
+  <svg class="trazo" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="gradTrazo" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%" stop-color="#00BAC2" stop-opacity="0" />
+        <stop offset="22%" stop-color="#00BAC2" stop-opacity=".55" />
+        <stop offset="52%" stop-color="#0C67B8" stop-opacity=".5" />
+        <stop offset="76%" stop-color="#B41A3B" stop-opacity=".45" />
+        <stop offset="100%" stop-color="#F6750C" stop-opacity="0" />
+      </linearGradient>
+      <linearGradient id="gradTrazo2" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#F6750C" stop-opacity="0" />
+        <stop offset="40%" stop-color="#F6750C" stop-opacity=".35" />
+        <stop offset="100%" stop-color="#00BAC2" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+    <path
+      d="M-100,700 C180,660 300,430 520,400 C740,370 800,180 1080,150 C1220,136 1300,110 1380,60"
+      fill="none" stroke="url(#gradTrazo)" stroke-width="2" />
+    <path
+      d="M-100,760 C220,720 340,520 600,470 C860,420 940,250 1300,190"
+      fill="none" stroke="url(#gradTrazo2)" stroke-width="1.2" />
+  </svg>
+</div>
+
+<style>
+  .cinta-hero {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  /* Las manchas: el desenfoque se rasteriza una sola vez porque solo
+     cambia `transform`, nunca el filtro ni el tamaño. */
+  .mancha {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    will-change: transform;
+  }
+
+  .m1 {
+    width: 46vw; height: 46vw; min-width: 420px; min-height: 420px;
+    top: -12%; left: -6%;
+    background: radial-gradient(circle, rgba(0, 186, 194, 0.62) 0%, rgba(0, 186, 194, 0) 68%);
+    animation: flota1 26s ease-in-out infinite;
+  }
+  .m2 {
+    width: 52vw; height: 52vw; min-width: 460px; min-height: 460px;
+    top: 4%; left: 34%;
+    background: radial-gradient(circle, rgba(12, 103, 184, 0.66) 0%, rgba(12, 103, 184, 0) 68%);
+    animation: flota2 32s ease-in-out infinite;
+  }
+  .m3 {
+    width: 38vw; height: 38vw; min-width: 340px; min-height: 340px;
+    bottom: -14%; left: 22%;
+    background: radial-gradient(circle, rgba(180, 26, 59, 0.52) 0%, rgba(180, 26, 59, 0) 68%);
+    animation: flota3 29s ease-in-out infinite;
+  }
+  .m4 {
+    width: 42vw; height: 42vw; min-width: 380px; min-height: 380px;
+    top: 18%; right: -10%;
+    background: radial-gradient(circle, rgba(246, 117, 12, 0.5) 0%, rgba(246, 117, 12, 0) 68%);
+    animation: flota4 35s ease-in-out infinite;
+  }
+
+  /* Recorridos distintos para que nunca se muevan en bloque. */
+  @keyframes flota1 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    33%      { transform: translate3d(9vw, 7vh, 0) scale(1.12); }
+    66%      { transform: translate3d(3vw, -5vh, 0) scale(0.94); }
+  }
+  @keyframes flota2 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    40%      { transform: translate3d(-11vw, 9vh, 0) scale(0.9); }
+    70%      { transform: translate3d(6vw, 4vh, 0) scale(1.1); }
+  }
+  @keyframes flota3 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    45%      { transform: translate3d(13vw, -8vh, 0) scale(1.16); }
+    75%      { transform: translate3d(-4vw, -3vh, 0) scale(0.96); }
+  }
+  @keyframes flota4 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    35%      { transform: translate3d(-8vw, 10vh, 0) scale(1.08); }
+    68%      { transform: translate3d(-3vw, -6vh, 0) scale(0.92); }
+  }
+
+  /* El trazo: repite el gesto ascendente del isotipo sobre las manchas. */
+  .trazo {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    opacity: 0.9;
+  }
+  .trazo path {
+    stroke-dasharray: 2600;
+    stroke-dashoffset: 2600;
+    animation: dibujaTrazo 2.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+  }
+  .trazo path:last-child { animation-delay: 0.85s; }
+  @keyframes dibujaTrazo { to { stroke-dashoffset: 0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mancha { animation: none; }
+    .trazo path { animation: none; stroke-dashoffset: 0; }
+  }
+</style>

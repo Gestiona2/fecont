@@ -1,0 +1,20 @@
+# dependencias y compilado
+node_modules/
+dist/
+.astro/
+
+# sistema
+.DS_Store
+*.log
+
+# Insumos originales del cliente: no viajan al repo.
+insumos/
+
+# Documentos de trabajo internos: NO son para el cliente ni para el público.
+# Contienen el análisis del negocio (FODA con las debilidades de FECONT), el
+# estado de los pendientes y el encuadre comercial de la propuesta. Viven solo
+# en la máquina del proveedor.
+FECONT.md
+MARCA.md
+PENDIENTES.md
+docs/

@@ -1,0 +1,262 @@
+---
+/**
+ * Layout base — lo que se repite en todas las páginas.
+ * Menú, pie, apariciones al bajar, volver arriba.
+ *
+ * El contenido de cada página NO se escribe aquí: vive en src/datos/.
+ *
+ * Sin conmutador de tema: el sitio está compuesto con secciones oscuras
+ * y claras alternadas a propósito. Ver docs/2026-08-25-home-propuesta-design.md.
+ */
+import "../styles/global.css";
+import sitio from "../datos/sitio.json";
+import { ruta } from "../lib/ruta";
+
+interface Props {
+  titulo: string;
+  descripcion?: string;
+  activa?: string;
+}
+const { titulo, descripcion = sitio.descripcion, activa = "" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <link rel="icon" href={ruta("/brand/favicon.png")} />
+    <meta name="theme-color" content="#0f1c2d" />
+
+    <link rel="preload" href={ruta("/fonts/titulos-variable.woff2")} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={ruta("/fonts/cuerpo-variable.woff2")} as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+  </head>
+
+  <body>
+    <!-- ==================== MENÚ ==================== -->
+    <header class="nav" id="nav">
+      <div class="container nav-inner">
+        <a href={ruta("/")} class="nav-logo" aria-label={`${sitio.nombre} — inicio`}>
+          <img src={ruta("/brand/logo.webp")} alt={sitio.nombre} width="720" height="225" />
+        </a>
+
+        <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
+          {sitio.menu.map((item) => (
+            <a href={ruta(item.href)} class={activa === item.id ? "activo" : ""}>{item.texto}</a>
+          ))}
+        </nav>
+
+        <div class="nav-actions">
+          <a href={ruta(sitio.ctaPrincipal.href)} class="btn btn-primary">{sitio.ctaPrincipal.texto}</a>
+          <button id="botonMenu" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+            <i data-lucide="menu"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <!-- ==================== PIE ==================== -->
+    <footer class="pie">
+      <div class="container">
+        <div class="pie-grid">
+          <div>
+            <div class="pie-logo">
+              <img src={ruta("/brand/logo-vertical.webp")} alt={sitio.razonSocial} width="560" height="488" loading="lazy" />
+            </div>
+            <p class="pie-desc">{sitio.descripcion}</p>
+            <div class="pie-redes">
+              {sitio.redes.map((r) => (
+                <a href={ruta(r.href)} aria-label={r.nombre} rel="noopener">
+                  <i data-lucide={r.icono}></i>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h4>Contacto</h4>
+            <div class="pie-lista">
+              <span class="con-ico"><i data-lucide="map-pin"></i>{sitio.direccion}</span>
+              {sitio.telefonos.map((t) => (
+                <a class="con-ico" href={`tel:+57${t.replace(/\s/g, "")}`}>
+                  <i data-lucide="phone"></i>{t}
+                </a>
+              ))}
+              <a class="con-ico" href={`mailto:${sitio.correo}`}>
+                <i data-lucide="mail"></i>{sitio.correo}
+              </a>
+              <span class="con-ico"><i data-lucide="clock"></i>{sitio.horario}</span>
+            </div>
+          </div>
+
+          <div>
+            <h4>El fondo</h4>
+            <div class="pie-lista">
+              {sitio.menu.map((item) => <a href={ruta(item.href)}>{item.texto}</a>)}
+              <a href={ruta("#afiliacion")}>Afiliación</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pie-legal">
+          <p>&copy; {new Date().getFullYear()} {sitio.razonSocial}. NIT {sitio.nit}.</p>
+          <nav class="pie-legales" aria-label="Enlaces legales">
+            {sitio.legales.map((l) => <a href={ruta(l.href)}>{l.texto}</a>)}
+          </nav>
+          <p class="pie-vigilancia">
+            {sitio.vigilancia}. {sitio.personeria}. {sitio.camara}.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <a
+      href={`https://wa.me/${sitio.whatsapp}`}
+      class="flota-wa"
+      target="_blank"
+      rel="noopener"
+      aria-label="Escribir por WhatsApp"
+    >
+      <i data-lucide="message-circle"></i>
+    </a>
+    <button class="volver-arriba" id="volverArriba" aria-label="Volver arriba">
+      <i data-lucide="arrow-up"></i>
+    </button>
+
+    <!--
+      Librerías guardadas dentro del sitio, no desde servidores ajenos.
+      Privacidad + longevidad. Ver conocimiento/politicas.md.
+      Versiones: GSAP 3.13.0 · ScrollTrigger 3.13.0 · Lucide 0.544.0
+    -->
+    <script is:inline src={ruta("/vendor/lucide/lucide.min.js")}></script>
+    <script is:inline src={ruta("/vendor/gsap/gsap.min.js")}></script>
+    <script is:inline src={ruta("/vendor/gsap/ScrollTrigger.min.js")}></script>
+
+    <script is:inline>
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => Array.from(document.querySelectorAll(s));
+      const menosMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (window.lucide) lucide.createIcons();
+
+      /* ---------- Menú en celular ---------- */
+      const botonMenu = $("#botonMenu");
+      const navLinks = $("#navLinks");
+      botonMenu?.addEventListener("click", () => {
+        const abierto = navLinks.classList.toggle("abierto");
+        botonMenu.setAttribute("aria-expanded", String(abierto));
+        botonMenu.innerHTML = abierto ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
+        if (window.lucide) lucide.createIcons();
+      });
+      // Cerrar al elegir un destino
+      navLinks?.addEventListener("click", (e) => {
+        if (e.target.tagName === "A" && navLinks.classList.contains("abierto")) {
+          navLinks.classList.remove("abierto");
+          botonMenu.setAttribute("aria-expanded", "false");
+          botonMenu.innerHTML = '<i data-lucide="menu"></i>';
+          if (window.lucide) lucide.createIcons();
+        }
+      });
+
+      /* ---------- Apariciones al bajar, con GSAP ---------- */
+      if (window.gsap && window.ScrollTrigger && !menosMovimiento) {
+        gsap.registerPlugin(ScrollTrigger);
+        $$(".reveal").forEach((el) =>
+          gsap.to(el, {
+            opacity: 1, y: 0, duration: 0.95, ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 88%" },
+          })
+        );
+        // Parallax suave: data-parallax="0.08" (valores altos marean)
+        $$("[data-parallax]").forEach((el) => {
+          gsap.to(el, {
+            yPercent: -parseFloat(el.dataset.parallax) * 100, ease: "none",
+            scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true },
+          });
+        });
+      } else {
+        $$(".reveal").forEach((el) => { el.style.opacity = 1; el.style.transform = "none"; });
+      }
+
+      /* ---------- Apariciones en CSS puro ---------- */
+      const apariciones = $$(".reveal-up, .reveal-left, .reveal-right, .reveal-pop, [data-seen]");
+      $$("[data-stagger]").forEach((grupo) => {
+        Array.from(grupo.children).forEach((hijo, i) => hijo.style.setProperty("--i", i));
+      });
+
+      if (menosMovimiento || !("IntersectionObserver" in window)) {
+        apariciones.forEach((el) => el.classList.add("seen"));
+      } else {
+        const observador = new IntersectionObserver(
+          (entradas) => {
+            entradas.forEach((entrada) => {
+              if (entrada.isIntersecting) {
+                entrada.target.classList.add("seen");
+                observador.unobserve(entrada.target);
+              }
+            });
+          },
+          { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
+        );
+        apariciones.forEach((el) => observador.observe(el));
+      }
+
+      /* ---------- Contadores ---------- */
+      const contadores = $$("[data-contador]");
+      if (contadores.length) {
+        const animar = (el) => {
+          const destino = parseFloat(el.dataset.contador);
+          const esAnio = el.dataset.formato === "año";
+          const escribir = (v) =>
+            (el.textContent = esAnio ? String(v) : v.toLocaleString("es-CO"));
+
+          // En una pestaña oculta el navegador estrangula requestAnimationFrame
+          // y la cifra se quedaría en cero. Mejor escribirla de una vez.
+          if (menosMovimiento || document.hidden) { escribir(destino); return; }
+
+          const dur = 1500;
+          const t0 = performance.now();
+          const paso = (t) => {
+            const p = Math.min((t - t0) / dur, 1);
+            const e = 1 - Math.pow(1 - p, 3); // desaceleración
+            escribir(Math.round(destino * e));
+            if (p < 1) requestAnimationFrame(paso);
+          };
+          requestAnimationFrame(paso);
+          // Red de seguridad por si la animación nunca termina.
+          setTimeout(() => escribir(destino), dur + 400);
+        };
+        const obsNum = new IntersectionObserver((es) => {
+          es.forEach((e) => {
+            if (e.isIntersecting) { animar(e.target); obsNum.unobserve(e.target); }
+          });
+        }, { threshold: 0.6 });
+        contadores.forEach((el) => obsNum.observe(el));
+      }
+
+      /* ---------- Menú con fondo al bajar + volver arriba ---------- */
+      const nav = $("#nav");
+      const volverArriba = $("#volverArriba");
+      const alBajar = () => {
+        nav.classList.toggle("bajado", window.scrollY > 20);
+        volverArriba.classList.toggle("visible", window.scrollY > 700);
+      };
+      window.addEventListener("scroll", alBajar, { passive: true });
+      alBajar();
+      volverArriba?.addEventListener("click", () =>
+        window.scrollTo({ top: 0, behavior: menosMovimiento ? "auto" : "smooth" })
+      );
+    </script>
+  </body>
+</html>

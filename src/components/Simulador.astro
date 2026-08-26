@@ -1,0 +1,193 @@
+---
+/**
+ * Simulador de cuota.
+ *
+ * Calcula con la fórmula de anualidad (cuota fija), usando la tasa de
+ * referencia del sector. NO es una oferta: la tasa real de FECONT por línea
+ * todavía no la tenemos y la interfaz lo dice de forma explícita.
+ * Cuando llegue, se cambia `tasaAnual` en src/datos/inicio.json.
+ */
+import inicio from "../datos/inicio.json";
+import { ruta } from "../lib/ruta";
+const s = inicio.simulador;
+---
+
+<section class="pad" id="simulador">
+  <div class="container">
+    <div class="cabecera-seccion reveal">
+      <span class="eyebrow"><span class="dot"></span>{s.eyebrow}</span>
+      <h2 class="section-title">{s.titulo}</h2>
+      <p class="lead" style="margin-top:20px">{s.bajada}</p>
+    </div>
+
+    <div class="simulador-caja reveal">
+      <div class="sim-controles">
+        <div class="sim-lineas" role="group" aria-label="Línea de crédito">
+          {s.lineas.map((l, i) => (
+            <button
+              type="button"
+              class={`sim-linea-btn${i === 0 ? " activa" : ""}`}
+              data-linea={l.id}
+              aria-pressed={i === 0 ? "true" : "false"}
+            >{l.nombre}</button>
+          ))}
+        </div>
+
+        <div class="sim-campo">
+          <div class="sim-campo-cab">
+            <label for="simMonto">Monto</label>
+            <span class="valor num" id="simMontoTexto">$0</span>
+          </div>
+          <input type="range" id="simMonto" min="1000000" max="30000000" step="500000" value="12000000" />
+          <div class="sim-topes num">
+            <span id="simMontoMin">$1.000.000</span>
+            <span id="simMontoMax">$30.000.000</span>
+          </div>
+        </div>
+
+        <div class="sim-campo" style="margin-bottom:0">
+          <div class="sim-campo-cab">
+            <label for="simPlazo">Plazo</label>
+            <span class="valor num" id="simPlazoTexto">24 meses</span>
+          </div>
+          <input type="range" id="simPlazo" min="6" max="36" step="1" value="24" />
+          <div class="sim-topes num">
+            <span id="simPlazoMin">6 meses</span>
+            <span id="simPlazoMax">36 meses</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-resultado">
+        <span class="sim-cuota-etiqueta">Cuota mensual estimada</span>
+        <p class="sim-cuota num" id="simCuota">$0 <span class="mes">/mes</span></p>
+
+        <div class="sim-desglose">
+          <div class="fila"><span>Monto solicitado</span><strong class="num" id="simResMonto">$0</strong></div>
+          <div class="fila"><span>Plazo</span><strong class="num" id="simResPlazo">0 meses</strong></div>
+          <div class="fila"><span>Tasa de referencia</span><strong class="num">{s.tasaAnual} % E. A.</strong></div>
+          <div class="fila"><span>Total a pagar</span><strong class="num" id="simResTotal">$0</strong></div>
+        </div>
+
+        <a href={ruta(s.cta.href)} class="btn btn-turquesa">
+          {s.cta.texto}<i data-lucide="arrow-right"></i>
+        </a>
+
+        <p class="sim-nota">{s.notaTasa}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ lineas: s.lineas, tasaAnual: s.tasaAnual }}>
+  (function () {
+    const $ = (id) => document.getElementById(id);
+    const inMonto = $("simMonto"), inPlazo = $("simPlazo");
+    if (!inMonto || !inPlazo) return;
+
+    const pesos = new Intl.NumberFormat("es-CO", {
+      style: "currency", currency: "COP", maximumFractionDigits: 0,
+    });
+    const quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let lineaActual = lineas[0];
+    let animCuota, respaldoCuota;
+
+    /* La tasa viene anual efectiva: se pasa a mensual equivalente. */
+    const tasaMes = Math.pow(1 + tasaAnual / 100, 1 / 12) - 1;
+
+    /* Cuota fija de una anualidad vencida. */
+    function cuota(capital, meses) {
+      if (meses <= 0) return capital;
+      const f = Math.pow(1 + tasaMes, meses);
+      return (capital * tasaMes * f) / (f - 1);
+    }
+
+    /* La barra de progreso del riel se pinta con una variable CSS. */
+    function pintarRiel(input) {
+      const p = ((input.value - input.min) / (input.max - input.min)) * 100;
+      input.style.setProperty("--pos", p + "%");
+    }
+
+    function escribirCuota(el, v) {
+      el.innerHTML = pesos.format(Math.round(v)) + ' <span class="mes">/mes</span>';
+    }
+
+    function animarCuota(destino) {
+      const el = $("simCuota");
+      cancelAnimationFrame(animCuota);
+      clearTimeout(respaldoCuota);
+
+      // Sin animación cuando no corresponde o cuando no la habría igual:
+      // en una pestaña oculta el navegador estrangula requestAnimationFrame
+      // y la cifra se quedaría congelada en el valor anterior.
+      if (quieto || document.hidden) {
+        el.dataset.v = destino;
+        escribirCuota(el, destino);
+        return;
+      }
+
+      const desde = parseFloat(el.dataset.v || 0);
+      const t0 = performance.now(), dur = 520;
+      const paso = (t) => {
+        const p = Math.min((t - t0) / dur, 1);
+        const e = 1 - Math.pow(1 - p, 3);
+        escribirCuota(el, desde + (destino - desde) * e);
+        if (p < 1) animCuota = requestAnimationFrame(paso);
+        else el.dataset.v = destino;
+      };
+      animCuota = requestAnimationFrame(paso);
+
+      // Red de seguridad: si la animación no llegó al final, escribir el valor.
+      respaldoCuota = setTimeout(() => {
+        if (parseFloat(el.dataset.v || 0) !== destino) {
+          cancelAnimationFrame(animCuota);
+          el.dataset.v = destino;
+          escribirCuota(el, destino);
+        }
+      }, dur + 250);
+    }
+
+    function recalcular() {
+      const monto = +inMonto.value, meses = +inPlazo.value;
+      const c = cuota(monto, meses);
+
+      $("simMontoTexto").textContent = pesos.format(monto);
+      $("simPlazoTexto").textContent = meses + (meses === 1 ? " mes" : " meses");
+      $("simResMonto").textContent = pesos.format(monto);
+      $("simResPlazo").textContent = meses + (meses === 1 ? " mes" : " meses");
+      $("simResTotal").textContent = pesos.format(Math.round(c * meses));
+      animarCuota(c);
+
+      pintarRiel(inMonto);
+      pintarRiel(inPlazo);
+    }
+
+    function aplicarLinea(l) {
+      lineaActual = l;
+      inMonto.min = l.min; inMonto.max = l.max; inMonto.step = l.paso; inMonto.value = l.inicial;
+      inPlazo.min = l.plazoMin; inPlazo.max = l.plazoMax; inPlazo.value = l.plazoInicial;
+      $("simMontoMin").textContent = pesos.format(l.min);
+      $("simMontoMax").textContent = pesos.format(l.max);
+      $("simPlazoMin").textContent = l.plazoMin + " meses";
+      $("simPlazoMax").textContent = l.plazoMax + " meses";
+      recalcular();
+    }
+
+    document.querySelectorAll(".sim-linea-btn").forEach((b) => {
+      b.addEventListener("click", () => {
+        document.querySelectorAll(".sim-linea-btn").forEach((o) => {
+          o.classList.remove("activa");
+          o.setAttribute("aria-pressed", "false");
+        });
+        b.classList.add("activa");
+        b.setAttribute("aria-pressed", "true");
+        aplicarLinea(lineas.find((l) => l.id === b.dataset.linea));
+      });
+    });
+
+    inMonto.addEventListener("input", recalcular);
+    inPlazo.addEventListener("input", recalcular);
+    aplicarLinea(lineas[0]);
+  })();
+</script>

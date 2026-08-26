@@ -1,0 +1,382 @@
+---
+/**
+ * Home — propuesta de diseño para FECONT.
+ * Todo el texto vive en src/datos/inicio.json y src/datos/sitio.json.
+ * Ver docs/2026-08-25-home-propuesta-design.md.
+ */
+import Layout from "../layouts/Layout.astro";
+import CintaHero from "../components/CintaHero.astro";
+import Simulador from "../components/Simulador.astro";
+import sitio from "../datos/sitio.json";
+import inicio from "../datos/inicio.json";
+import { ruta } from "../lib/ruta";
+
+const { hero, credibilidad, portafolio, pertenecer, pagos, transparencia, noticias, afiliacion, cierre } = inicio;
+---
+
+<Layout titulo={`${sitio.nombre} — ${sitio.razonSocial}`}>
+  <!-- ==================== 1. HERO ==================== -->
+  <section class="hero">
+    <CintaHero />
+    <div class="container">
+      <div class="hero-texto">
+        <span class="eyebrow reveal"><span class="dot"></span>{hero.eyebrow}</span>
+        <h1 class="reveal">
+          {hero.titulo}
+          <span class="grad">{hero.tituloAcento}</span>
+        </h1>
+        <p class="lead reveal">{hero.bajada}</p>
+        <div class="hero-ctas reveal">
+          <a href={ruta(hero.ctaPrimario.href)} class="btn btn-primary">
+            {hero.ctaPrimario.texto}<i data-lucide="arrow-right"></i>
+          </a>
+          <a href={ruta(hero.ctaSecundario.href)} class="btn btn-ghost">
+            <i data-lucide="calculator"></i>{hero.ctaSecundario.texto}
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-cifras reveal" data-stagger>
+        {hero.cifras.map((c) => (
+          <div class="cifra">
+            <p class="v num">
+              <span data-contador={c.valor} data-formato={c.formato ?? ""}>0</span>{c.sufijo}
+            </p>
+            <p class="e">{c.etiqueta}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span class="riel"></span>
+    </div>
+  </section>
+
+  <!-- ==================== 2. CREDIBILIDAD ==================== -->
+  <section class="pad-sm">
+    <div class="container">
+      <h2 class="section-title reveal" style="font-size:clamp(1.4rem,2.6vw,1.9rem);margin-bottom:34px;max-width:26ch">
+        {credibilidad.titulo}
+      </h2>
+      <div class="sellos" data-stagger>
+        {credibilidad.sellos.map((s) => (
+          <div class="sello reveal-up">
+            <span class="ico"><i data-lucide={s.icono}></i></span>
+            <div>
+              <h3>{s.titulo}</h3>
+              <p>{s.detalle}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <hr class="linea-marca" />
+
+  <!-- ==================== 3. PORTAFOLIO ==================== -->
+  <section class="pad zona-clara" id="portafolio">
+    <div class="container">
+      <div class="cabecera-seccion reveal">
+        <span class="eyebrow"><span class="dot"></span>{portafolio.eyebrow}</span>
+        <h2 class="section-title">{portafolio.titulo}</h2>
+        <p class="lead" style="margin-top:20px">{portafolio.bajada}</p>
+      </div>
+
+      <div class="portafolio-grid">
+        <!-- Ahorro -->
+        <div class="bloque-producto reveal-left">
+          <h3>
+            <span class="ico"><i data-lucide="piggy-bank"></i></span>
+            {portafolio.ahorro.titulo}
+          </h3>
+          <p>{portafolio.ahorro.descripcion}</p>
+
+          <div class="acordeon">
+            {portafolio.ahorro.items.map((it, i) => (
+              <div class={`acordeon-item${i === 0 ? " abierto" : ""}`}>
+                <button type="button" class="acordeon-btn" aria-expanded={i === 0 ? "true" : "false"}>
+                  <span>
+                    {it.nombre}
+                    <span class="resumen">{it.resumen}</span>
+                  </span>
+                  <span class="mas" aria-hidden="true"><i data-lucide="plus"></i></span>
+                </button>
+                <div class="acordeon-cuerpo">
+                  <div><p>{it.detalle}</p></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Crédito -->
+        <div class="bloque-producto reveal-right">
+          <h3>
+            <span class="ico"><i data-lucide="hand-coins"></i></span>
+            {portafolio.credito.titulo}
+          </h3>
+          <p>{portafolio.credito.descripcion}</p>
+
+          <div class="lineas">
+            {portafolio.credito.items.map((l) => (
+              <div class="linea">
+                <span class="n">{l.nombre}</span>
+                <span class="m num">{l.monto}</span>
+                <span class="d">{l.detalle}</span>
+                <span class="p num">{l.plazo}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. SIMULADOR ==================== -->
+  <Simulador />
+
+  <hr class="linea-marca" />
+
+  <!-- ==================== 5. POR QUÉ PERTENECER ==================== -->
+  <section class="pad zona-clara" id="pertenecer">
+    <div class="container">
+      <div class="pertenecer-grid">
+        {/* Sin data-parallax: la foto es sticky y ya tiene movimiento propio.
+            Además GSAP y el CSS se pelearían por transform en el mismo nodo. */}
+        <div class="pertenecer-foto">
+          <img
+            src={ruta(pertenecer.imagen)}
+            alt={pertenecer.imagenAlt}
+            width="1000" height="1300" loading="lazy"
+          />
+          <span class="marco"></span>
+        </div>
+
+        <div>
+          <span class="eyebrow reveal"><span class="dot"></span>{pertenecer.eyebrow}</span>
+          <h2 class="section-title reveal">{pertenecer.titulo}</h2>
+          <p class="lead reveal" style="margin:20px 0 34px">{pertenecer.bajada}</p>
+
+          <div class="razones" data-stagger>
+            {pertenecer.razones.map((r) => (
+              <div class="razon reveal-up">
+                <span class="ico"><i data-lucide={r.icono}></i></span>
+                <div>
+                  <h3>{r.titulo}</h3>
+                  <p>{r.texto}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 6. PAGOS Y CUENTAS ==================== -->
+  <section class="pad" id="pagos">
+    <div class="container">
+      <div class="cabecera-seccion reveal">
+        <span class="eyebrow"><span class="dot"></span>{pagos.eyebrow}</span>
+        <h2 class="section-title">{pagos.titulo}</h2>
+        <p class="lead" style="margin-top:20px">{pagos.bajada}</p>
+      </div>
+
+      <div class="pagos-grid">
+        <div class="pse-caja reveal-left">
+          <h3>Pago Amigo</h3>
+          <p>{pagos.botonPSE.nota}</p>
+          <a href={pagos.botonPSE.href} class="btn btn-turquesa" target="_blank" rel="noopener">
+            <i data-lucide="credit-card"></i>{pagos.botonPSE.texto}
+          </a>
+          <p class="pse-nota">Se abre en el portal seguro de ACH Colombia</p>
+        </div>
+
+        <div>
+          <h3 style="font-size:1.3rem;margin-bottom:6px" class="reveal">{pagos.cuentasTitulo}</h3>
+          <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:22px" class="reveal">
+            {pagos.cuentasNota}
+          </p>
+
+          <div class="cuentas" data-stagger>
+            {pagos.cuentas.map((c) => (
+              <div class="cuenta reveal-up">
+                <div class="info">
+                  <p class="banco">{c.banco}</p>
+                  <p class="tipo">{c.tipo}</p>
+                </div>
+                <div>
+                  <p class="numero num">{c.numero}</p>
+                  {c.convenio && <p class="convenio num">Convenio {c.convenio}</p>}
+                </div>
+                <button type="button" class="btn-copiar" data-copiar={c.numero}>
+                  <i data-lucide="copy"></i><span>Copiar</span>
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="linea-marca" />
+
+  <!-- ==================== 7. TRANSPARENCIA ==================== -->
+  <section class="pad zona-clara" id="transparencia">
+    <div class="container">
+      <div class="cabecera-seccion reveal">
+        <span class="eyebrow"><span class="dot"></span>{transparencia.eyebrow}</span>
+        <h2 class="section-title">{transparencia.titulo}</h2>
+        <p class="lead" style="margin-top:20px">{transparencia.bajada}</p>
+      </div>
+
+      <div class="docs" data-stagger>
+        {transparencia.documentos.map((d) => (
+          <article class="doc reveal-up">
+            <span class="ico"><i data-lucide={d.icono}></i></span>
+            <h3>{d.titulo}</h3>
+            <p>{d.detalle}</p>
+            <span class="pendiente">Por publicar</span>
+          </article>
+        ))}
+      </div>
+
+      <div class="organos">
+        {transparencia.organos.map((o, i) => (
+          <div class="organo reveal-up">
+            <span class="n num">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{o.nombre}</h3>
+              <p>{o.detalle}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 8. NOTICIAS ==================== -->
+  <section class="pad" id="noticias">
+    <div class="container">
+      <div class="cabecera-seccion reveal">
+        <p><span class="aviso-demo"><i data-lucide="info"></i>{noticias.avisoDemo}</span></p>
+        <span class="eyebrow"><span class="dot"></span>{noticias.eyebrow}</span>
+        <h2 class="section-title">{noticias.titulo}</h2>
+        <p class="lead" style="margin-top:20px">{noticias.bajada}</p>
+      </div>
+
+      <div class="noticias-grid" data-stagger>
+        {noticias.items.map((n) => (
+          <article class="noticia reveal-up">
+            <div class="foto">
+              <span class="cat">{n.categoria}</span>
+              <img src={ruta(n.imagen)} alt={n.imagenAlt} width="900" height="600" loading="lazy" />
+            </div>
+            <div class="cuerpo">
+              <time datetime={n.fecha}>{n.fechaTexto}</time>
+              <h3>{n.titulo}</h3>
+              <p>{n.resumen}</p>
+              <span class="leer">Leer más <i data-lucide="arrow-right"></i></span>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div style="margin-top:44px" class="reveal">
+        <a href={ruta(noticias.cta.href)} class="btn btn-ghost">
+          {noticias.cta.texto}<i data-lucide="arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="linea-marca" />
+
+  <!-- ==================== 9. AFILIACIÓN ==================== -->
+  <section class="pad zona-clara" id="afiliacion">
+    <div class="container">
+      <div class="cabecera-seccion reveal">
+        <span class="eyebrow"><span class="dot"></span>{afiliacion.eyebrow}</span>
+        <h2 class="section-title">{afiliacion.titulo}</h2>
+        <p class="lead" style="margin-top:20px">{afiliacion.bajada}</p>
+      </div>
+
+      <div class="pasos" data-seen data-stagger>
+        <span class="riel-vivo" aria-hidden="true"></span>
+        {afiliacion.pasos.map((p) => (
+          <div class="paso reveal-up">
+            <span class="n num">{p.numero}</span>
+            <h3>{p.titulo}</h3>
+            <p>{p.texto}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="aporte-nota reveal">{afiliacion.aporteNota}</p>
+
+      <div style="margin-top:34px" class="reveal">
+        <a href={ruta(afiliacion.cta.href)} class="btn btn-primary">
+          {afiliacion.cta.texto}<i data-lucide="arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 10. CIERRE ==================== -->
+  <section class="pad cierre" id="contacto">
+    <div class="container">
+      <h2 class="reveal">
+        {cierre.titulo}
+        <span class="grad">{cierre.tituloAcento}</span>
+      </h2>
+      <p class="lead reveal">{cierre.bajada}</p>
+      <div class="cierre-ctas reveal">
+        <a href={cierre.ctaPrimario.href} class="btn btn-primary" target="_blank" rel="noopener">
+          <i data-lucide="message-circle"></i>{cierre.ctaPrimario.texto}
+        </a>
+        <a href={cierre.ctaSecundario.href} class="btn btn-ghost">
+          <i data-lucide="mail"></i>{cierre.ctaSecundario.texto}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  /* ---------- Acordeón del portafolio de ahorro ---------- */
+  document.querySelectorAll(".acordeon-btn").forEach((b) => {
+    b.addEventListener("click", () => {
+      const item = b.closest(".acordeon-item");
+      const abierto = item.classList.toggle("abierto");
+      b.setAttribute("aria-expanded", String(abierto));
+    });
+  });
+
+  /* ---------- Copiar número de cuenta ---------- */
+  document.querySelectorAll("[data-copiar]").forEach((b) => {
+    b.addEventListener("click", async () => {
+      const texto = b.dataset.copiar;
+      try {
+        await navigator.clipboard.writeText(texto);
+      } catch (e) {
+        // Navegadores sin permiso de portapapeles: campo temporal
+        const t = document.createElement("textarea");
+        t.value = texto; t.style.position = "fixed"; t.style.opacity = "0";
+        document.body.appendChild(t); t.select();
+        try { document.execCommand("copy"); } catch (e2) { return; }
+        document.body.removeChild(t);
+      }
+      const etiqueta = b.querySelector("span");
+      const original = etiqueta.textContent;
+      b.classList.add("copiado");
+      etiqueta.textContent = "Copiado";
+      setTimeout(() => {
+        b.classList.remove("copiado");
+        etiqueta.textContent = original;
+      }, 1800);
+    });
+  });
+</script>

@@ -1,0 +1,379 @@
+{
+  "_comentario": "Contenido del home. Todo el texto visible vive aquí; los .astro no llevan texto escrito adentro.",
+  "hero": {
+    "eyebrow": "Fondo de empleados · Desde 2013",
+    "titulo": "El fondo de los contadores",
+    "tituloAcento": "de Colombia",
+    "bajada": "Ahorro, crédito y bienestar construidos por contadores públicos, para contadores públicos. Sin ánimo de lucro: los excedentes vuelven a los asociados.",
+    "ctaPrimario": {
+      "texto": "Quiero afiliarme",
+      "href": "#afiliacion"
+    },
+    "ctaSecundario": {
+      "texto": "Simular mi crédito",
+      "href": "#simulador"
+    },
+    "cifras": [
+      {
+        "valor": 1998,
+        "sufijo": "",
+        "etiqueta": "Año en que nació la idea",
+        "formato": "año"
+      },
+      {
+        "valor": 27,
+        "sufijo": "",
+        "etiqueta": "Contadores fundadores"
+      },
+      {
+        "valor": 5,
+        "sufijo": "",
+        "etiqueta": "Líneas de crédito"
+      },
+      {
+        "valor": 100,
+        "sufijo": "%",
+        "etiqueta": "De los excedentes al asociado"
+      }
+    ]
+  },
+  "credibilidad": {
+    "titulo": "Una entidad vigilada, no una aplicación financiera",
+    "sellos": [
+      {
+        "icono": "shield-check",
+        "titulo": "Supersolidaria",
+        "detalle": "Vigilado y controlado · Registro 00013731"
+      },
+      {
+        "icono": "scale",
+        "titulo": "Personería jurídica",
+        "detalle": "17 de octubre de 2013 · Cámara de Comercio S0045357"
+      },
+      {
+        "icono": "landmark",
+        "titulo": "NIT 900.667.935-9",
+        "detalle": "Entidad sin ánimo de lucro del sector solidario"
+      },
+      {
+        "icono": "users",
+        "titulo": "Gobierno democrático",
+        "detalle": "Asamblea General, Junta Directiva y Control Social"
+      }
+    ]
+  },
+  "portafolio": {
+    "eyebrow": "Portafolio",
+    "titulo": "Su dinero, en manos de sus colegas",
+    "bajada": "Dos frentes: hacer crecer lo que ahorra y financiar lo que necesita, con condiciones que un banco no le da porque un banco tiene accionistas y nosotros tenemos asociados.",
+    "ahorro": {
+      "titulo": "Ahorro",
+      "descripcion": "La cultura del ahorro es el origen de FECONT y sigue siendo su pilar.",
+      "items": [
+        {
+          "nombre": "Ahorro a la vista",
+          "resumen": "Alta liquidez, disponible cuando lo necesite.",
+          "detalle": "Retiro libre en cualquier momento, salvo que los recursos estén pignorados como garantía de un crédito vigente. La rentabilidad la fija la Junta Directiva."
+        },
+        {
+          "nombre": "Ahorro a término fijo (CDAT)",
+          "resumen": "Plazos de 90, 180, 270, 360 días y más.",
+          "detalle": "La alternativa solidaria al CDT bancario. Los rendimientos provienen de la colocación de cartera de la propia entidad."
+        },
+        {
+          "nombre": "Ahorro contractual",
+          "resumen": "Una cuota fija mensual hacia una meta concreta.",
+          "detalle": "Vacacional, navideño, estudios superiores o capitalización para vivienda y vehículo. El retiro se autoriza al cumplir el ciclo pactado."
+        }
+      ]
+    },
+    "credito": {
+      "titulo": "Crédito",
+      "descripcion": "Cinco líneas, cada una pensada para un momento distinto de la vida profesional.",
+      "items": [
+        {
+          "nombre": "Crédito ordinario",
+          "monto": "Hasta $30.000.000",
+          "plazo": "36 meses",
+          "detalle": "Libre destinación."
+        },
+        {
+          "nombre": "Compra de cartera",
+          "monto": "Hasta $30.000.000",
+          "plazo": "48 meses",
+          "detalle": "Para sustituir deudas de alto costo y sanear el flujo de caja."
+        },
+        {
+          "nombre": "Crédito educativo",
+          "monto": "Hasta $20.000.000",
+          "plazo": "36 meses",
+          "detalle": "Pregrado, posgrado y certificaciones. Se gira directo a la institución."
+        },
+        {
+          "nombre": "Mejora de vivienda",
+          "monto": "Hasta $30.000.000",
+          "plazo": "72 meses",
+          "detalle": "Adecuación, remodelación y valorización del inmueble."
+        },
+        {
+          "nombre": "FecontYA",
+          "monto": "$500.000",
+          "plazo": "30 días",
+          "detalle": "Para el imprevisto. Aprobación acelerada."
+        }
+      ]
+    }
+  },
+  "simulador": {
+    "eyebrow": "Simulador",
+    "titulo": "Cuánto pagaría al mes",
+    "bajada": "Mueva el monto y el plazo. El cálculo es una estimación con la tasa promedio del sector solidario, no una oferta de crédito.",
+    "tasaAnual": 15,
+    "notaTasa": "Estimación calculada con una tasa de referencia del 15 % efectivo anual, promedio del sector solidario colombiano. La tasa aplicable a su solicitud es la vigente al momento de la aprobación por parte del comité evaluador.",
+    "lineas": [
+      {
+        "id": "ordinario",
+        "nombre": "Ordinario",
+        "min": 1000000,
+        "max": 30000000,
+        "paso": 500000,
+        "plazoMin": 6,
+        "plazoMax": 36,
+        "inicial": 12000000,
+        "plazoInicial": 24
+      },
+      {
+        "id": "cartera",
+        "nombre": "Compra de cartera",
+        "min": 1000000,
+        "max": 30000000,
+        "paso": 500000,
+        "plazoMin": 12,
+        "plazoMax": 48,
+        "inicial": 18000000,
+        "plazoInicial": 36
+      },
+      {
+        "id": "educativo",
+        "nombre": "Educativo",
+        "min": 500000,
+        "max": 20000000,
+        "paso": 500000,
+        "plazoMin": 6,
+        "plazoMax": 36,
+        "inicial": 8000000,
+        "plazoInicial": 24
+      },
+      {
+        "id": "vivienda",
+        "nombre": "Mejora de vivienda",
+        "min": 2000000,
+        "max": 30000000,
+        "paso": 500000,
+        "plazoMin": 12,
+        "plazoMax": 72,
+        "inicial": 20000000,
+        "plazoInicial": 60
+      }
+    ],
+    "cta": {
+      "texto": "Solicitar esta línea",
+      "href": "#afiliacion"
+    }
+  },
+  "pertenecer": {
+    "eyebrow": "Por qué pertenecer",
+    "titulo": "Un banco le presta. Un fondo le pertenece.",
+    "bajada": "FECONT es una empresa exclusiva de contadores para los contadores. Cada excedente que genera vuelve como servicio, no como dividendo para un tercero.",
+    "imagen": "/img/comunidad-solidaria.webp",
+    "imagenAlt": "Dos contadores sonrientes revisando informes financieros durante una reunión de trabajo",
+    "razones": [
+      {
+        "icono": "trending-up",
+        "titulo": "Crecer como profesionales",
+        "texto": "Formación continua, actualización tributaria y networking con colegas que enfrentan los mismos retos."
+      },
+      {
+        "icono": "heart-handshake",
+        "titulo": "Bienestar para la familia",
+        "texto": "El fondo de bienestar social cubre calamidades domésticas y necesidades urgentes de la comunidad fondista."
+      },
+      {
+        "icono": "piggy-bank",
+        "titulo": "Bajar el costo de vivir",
+        "texto": "Convenios en pólizas, medicina prepagada, turismo, recreación y servicios médicos complementarios."
+      },
+      {
+        "icono": "percent",
+        "titulo": "Tasas razonables",
+        "texto": "Muy por debajo de las tasas de consumo de la banca comercial, porque el margen no va a accionistas."
+      },
+      {
+        "icono": "sprout",
+        "titulo": "Dejar algo construido",
+        "texto": "Una empresa sostenible para las próximas generaciones de contadores públicos de Colombia."
+      }
+    ]
+  },
+  "pagos": {
+    "eyebrow": "Pagos y recaudo",
+    "titulo": "Pague sus aportes en línea",
+    "bajada": "Débito directo desde cuentas corrientes, de ahorros o billeteras electrónicas a través de PSE.",
+    "botonPSE": {
+      "texto": "Pagar con PSE",
+      "href": "https://www.psepagos.co/psehostingui/ShowTicketOffice.aspx?ID=4184",
+      "nota": "Servicio Pago Amigo · Red ACH Colombia"
+    },
+    "cuentasTitulo": "O consigne directamente",
+    "cuentasNota": "Todas las cuentas están a nombre de FECONT.",
+    "cuentas": [
+      {
+        "banco": "Bancolombia",
+        "tipo": "Cuenta de ahorros",
+        "numero": "244-43272-085",
+        "convenio": "58878"
+      },
+      {
+        "banco": "Banco Caja Social",
+        "tipo": "Cuenta de ahorros",
+        "numero": "240-40713-557",
+        "convenio": "15735581"
+      },
+      {
+        "banco": "Banco de Bogotá",
+        "tipo": "Cuenta de ahorros",
+        "numero": "130-088-867",
+        "convenio": null
+      }
+    ]
+  },
+  "transparencia": {
+    "eyebrow": "Transparencia",
+    "titulo": "Puede revisar nuestras cuentas",
+    "bajada": "Somos un fondo de contadores: la rendición de cuentas no es un requisito que cumplimos, es el oficio de nuestros asociados. Aquí está todo lo que la Circular Externa 88 de 2025 de la Supersolidaria exige publicar, y algo más.",
+    "documentos": [
+      {
+        "icono": "file-text",
+        "titulo": "Estatutos vigentes",
+        "detalle": "Objeto social, vínculo de asociación y régimen económico."
+      },
+      {
+        "icono": "bar-chart-3",
+        "titulo": "Informes de gestión",
+        "detalle": "Resultados de cada ejercicio presentados a la Asamblea General."
+      },
+      {
+        "icono": "receipt",
+        "titulo": "Estados financieros",
+        "detalle": "Mensuales y anuales, bajo NIIF."
+      },
+      {
+        "icono": "gavel",
+        "titulo": "Manual ético y de buen gobierno",
+        "detalle": "Marco de conducta para directivos, colaboradores y asociados."
+      }
+    ],
+    "organos": [
+      {
+        "nombre": "Asamblea General de Asociados",
+        "detalle": "Órgano supremo. Define las directrices y evalúa la gestión al cierre de cada ejercicio."
+      },
+      {
+        "nombre": "Junta Directiva",
+        "detalle": "Cinco miembros principales con suplentes, elegidos por dos años. Aprueba políticas y vela por el objeto social."
+      },
+      {
+        "nombre": "Comité de Control Social",
+        "detalle": "Seis personas que auditan los resultados sociales y garantizan los derechos de la base asociativa."
+      },
+      {
+        "nombre": "Comités especializados",
+        "detalle": "Riesgo de liquidez, cartera, aprobación de créditos y eventos de bienestar."
+      }
+    ]
+  },
+  "noticias": {
+    "eyebrow": "Noticias y eventos",
+    "titulo": "Lo que pasa en el fondo",
+    "bajada": "Asambleas, capacitaciones y encuentros de la comunidad contable.",
+    "avisoDemo": "Contenido de ejemplo para la propuesta de diseño.",
+    "cta": {
+      "texto": "Ver todas las publicaciones",
+      "href": "#"
+    },
+    "items": [
+      {
+        "categoria": "Institucional",
+        "fecha": "2026-03-21",
+        "fechaTexto": "21 de marzo de 2026",
+        "titulo": "Asamblea General Ordinaria de Asociados",
+        "resumen": "Presentación del informe de gestión, estados financieros del ejercicio y elección de Junta Directiva para el nuevo periodo.",
+        "imagen": "/img/noticia-asamblea.webp",
+        "imagenAlt": "Sala de juntas con asociados reunidos alrededor de una mesa larga"
+      },
+      {
+        "categoria": "Formación",
+        "fecha": "2026-04-18",
+        "fechaTexto": "18 de abril de 2026",
+        "titulo": "Actualización tributaria para el cierre fiscal",
+        "resumen": "Jornada de actualización sobre los cambios normativos de la DIAN y su efecto en la práctica profesional del contador público.",
+        "imagen": "/img/noticia-capacitacion.webp",
+        "imagenAlt": "Dos profesionales frente a un tablero durante una capacitación"
+      },
+      {
+        "categoria": "Comunidad",
+        "fecha": "2026-05-30",
+        "fechaTexto": "30 de mayo de 2026",
+        "titulo": "Encuentro de asociados y networking contable",
+        "resumen": "Espacio de integración entre contadores de distintas generaciones, con presentación del nuevo portafolio de convenios.",
+        "imagen": "/img/noticia-encuentro.webp",
+        "imagenAlt": "Equipo de profesionales colaborando y saludándose alrededor de una mesa de reuniones"
+      }
+    ]
+  },
+  "afiliacion": {
+    "eyebrow": "Afiliación",
+    "titulo": "Cómo afiliarse",
+    "bajada": "El vínculo está abierto a contadores públicos —dependientes, independientes o pensionados— y a estudiantes de contaduría a partir de quinto semestre con ingresos demostrables.",
+    "pasos": [
+      {
+        "numero": "01",
+        "titulo": "Verifique el vínculo",
+        "texto": "Contador público titulado, estudiante desde quinto semestre con ingresos demostrables, o contador pensionado."
+      },
+      {
+        "numero": "02",
+        "titulo": "Diligencie la solicitud",
+        "texto": "Formato de afiliación con sus datos personales, laborales y la autorización de descuento."
+      },
+      {
+        "numero": "03",
+        "titulo": "Aporte mensual",
+        "texto": "6 % de un SMMLV a aportes sociales y ahorro permanente, más $5.000 al fondo de bienestar social."
+      },
+      {
+        "numero": "04",
+        "titulo": "Bienvenido al fondo",
+        "texto": "Acceso inmediato al portafolio de ahorro, a las líneas de crédito y a la red de convenios."
+      }
+    ],
+    "aporteNota": "Los aportes sociales y el ahorro permanente son suyos: se reintegran íntegramente al momento de la desvinculación. El aporte al fondo de bienestar social es el único no reembolsable, y es el que permite auxiliar a un colega en una calamidad.",
+    "cta": {
+      "texto": "Hablar con el fondo",
+      "href": "#contacto"
+    }
+  },
+  "cierre": {
+    "titulo": "Solidaridad profesional,",
+    "tituloAcento": "futuro compartido",
+    "bajada": "Somos el fondo de empleados de los contadores públicos de Colombia. Escríbanos y le contamos cómo vincularse.",
+    "ctaPrimario": {
+      "texto": "Escribir por WhatsApp",
+      "href": "https://wa.me/573193227069"
+    },
+    "ctaSecundario": {
+      "texto": "Enviar un correo",
+      "href": "mailto:fdofecont@gmail.com"
+    }
+  }
+}
