@@ -6,6 +6,7 @@
  */
 import Layout from "../layouts/Layout.astro";
 import CintaHero from "../components/CintaHero.astro";
+import TarjetaHero from "../components/TarjetaHero.astro";
 import Simulador from "../components/Simulador.astro";
 import sitio from "../datos/sitio.json";
 import inicio from "../datos/inicio.json";
@@ -19,21 +20,25 @@ const { hero, credibilidad, portafolio, pertenecer, pagos, transparencia, notici
   <section class="hero">
     <CintaHero />
     <div class="container">
-      <div class="hero-texto">
-        <span class="eyebrow reveal"><span class="dot"></span>{hero.eyebrow}</span>
-        <h1 class="reveal">
-          {hero.titulo}
-          <span class="grad">{hero.tituloAcento}</span>
-        </h1>
-        <p class="lead reveal">{hero.bajada}</p>
-        <div class="hero-ctas reveal">
-          <a href={ruta(hero.ctaPrimario.href)} class="btn btn-primary">
-            {hero.ctaPrimario.texto}<i data-lucide="arrow-right"></i>
-          </a>
-          <a href={ruta(hero.ctaSecundario.href)} class="btn btn-ghost">
-            <i data-lucide="calculator"></i>{hero.ctaSecundario.texto}
-          </a>
+      <div class="hero-cuerpo">
+        <div class="hero-texto">
+          <span class="eyebrow reveal"><span class="dot"></span>{hero.eyebrow}</span>
+          <h1 class="reveal">
+            {hero.titulo}
+            <span class="grad">{hero.tituloAcento}</span>
+          </h1>
+          <p class="lead reveal">{hero.bajada}</p>
+          <div class="hero-ctas reveal">
+            <a href={ruta(hero.ctaPrimario.href)} class="btn btn-primary">
+              {hero.ctaPrimario.texto}<i data-lucide="arrow-right"></i>
+            </a>
+            <a href={ruta(hero.ctaSecundario.href)} class="btn btn-ghost">
+              <i data-lucide="calculator"></i>{hero.ctaSecundario.texto}
+            </a>
+          </div>
         </div>
+
+        <TarjetaHero />
       </div>
 
       <div class="hero-cifras reveal" data-stagger>
@@ -185,13 +190,22 @@ const { hero, credibilidad, portafolio, pertenecer, pagos, transparencia, notici
       </div>
 
       <div class="pagos-grid">
-        <div class="pse-caja reveal-left">
-          <h3>Pago Amigo</h3>
-          <p>{pagos.botonPSE.nota}</p>
-          <a href={pagos.botonPSE.href} class="btn btn-turquesa" target="_blank" rel="noopener">
-            <i data-lucide="credit-card"></i>{pagos.botonPSE.texto}
-          </a>
-          <p class="pse-nota">Se abre en el portal seguro de ACH Colombia</p>
+        <div>
+          <div class="pagos-medios" data-stagger>
+            {pagos.botones.map((b) => (
+              <div class={`medio-pago reveal-up${b.destacado ? " destacado" : ""}`}>
+                <span class="ico"><i data-lucide={b.icono}></i></span>
+                <h3>{b.titulo}</h3>
+                <p>{b.descripcion}</p>
+                <a
+                  href={b.href}
+                  class={`btn ${b.destacado ? "btn-turquesa" : "btn-ghost"}`}
+                  target="_blank" rel="noopener"
+                >{b.texto}<i data-lucide="external-link"></i></a>
+              </div>
+            ))}
+          </div>
+          <p class="pse-nota reveal">{pagos.botonesNota}</p>
         </div>
 
         <div>

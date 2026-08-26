@@ -1,0 +1,161 @@
+---
+/**
+ * Tarjeta interactiva del hero.
+ *
+ * Dos caras a propósito: **ahorro y crédito**. La Ruta Estratégica de FECONT se
+ * llama "De Fondo a Ecosistema Profesional" y su propio FODA marca como debilidad
+ * el "portafolio poco diversificado más allá de ahorro/crédito". Un hero cuya
+ * pieza protagonista fuera solo una calculadora de préstamos contradiría eso.
+ *
+ * La cara de ahorro **no promete rendimientos**: suma los aportes y lo dice.
+ * FECONT no ha entregado sus tasas de captación.
+ *
+ * En pantallas menores a 1100px la tarjeta se oculta: el hero ya es alto en
+ * celular y el simulador completo está a un scroll de distancia.
+ */
+import inicio from "../datos/inicio.json";
+import { ruta } from "../lib/ruta";
+const t = inicio.hero.tarjeta;
+const tasaAnual = inicio.simulador.tasaAnual;
+---
+
+<aside class="tarjeta-hero" aria-label="Calculadora rápida">
+  <div class="th-cab">
+    <span class="th-etiqueta">{t.etiqueta}</span>
+    <div class="th-caras" role="group" aria-label="Qué quiere calcular">
+      {t.caras.map((c, i) => (
+        <button
+          type="button"
+          class={`th-cara-btn${i === 0 ? " activa" : ""}`}
+          data-cara={c.id}
+          aria-pressed={i === 0 ? "true" : "false"}
+        >{c.nombre}</button>
+      ))}
+    </div>
+  </div>
+
+  <p class="th-pregunta" id="thPregunta">{t.caras[0].pregunta}</p>
+
+  <div class="th-campo">
+    <span class="th-valor num" id="thMontoTexto">$0</span>
+    <input type="range" id="thMonto" aria-label="Monto" />
+    <div class="th-topes num">
+      <span id="thMontoMin"></span><span id="thMontoMax"></span>
+    </div>
+  </div>
+
+  <div class="th-campo">
+    <span class="th-plazo num" id="thPlazoTexto"></span>
+    <input type="range" id="thPlazo" aria-label="Plazo" />
+    <div class="th-topes num">
+      <span id="thPlazoMin"></span><span id="thPlazoMax"></span>
+    </div>
+  </div>
+
+  <div class="th-resultado">
+    <span class="th-res-etiqueta" id="thResEtiqueta">{t.caras[0].resultadoEtiqueta}</span>
+    <p class="th-res-valor num" id="thResultado">$0</p>
+  </div>
+
+  <p class="th-nota" id="thNota">{t.caras[0].nota}</p>
+
+  <a href={ruta(t.enlace.href)} class="th-enlace">
+    {t.enlace.texto}<i data-lucide="arrow-right"></i>
+  </a>
+</aside>
+
+<script is:inline define:vars={{ caras: t.caras, tasaAnual }}>
+  (function () {
+    const $ = (id) => document.getElementById(id);
+    const inMonto = $("thMonto"), inPlazo = $("thPlazo"), elRes = $("thResultado");
+    if (!inMonto || !inPlazo) return;
+
+    const pesos = new Intl.NumberFormat("es-CO", {
+      style: "currency", currency: "COP", maximumFractionDigits: 0,
+    });
+    const quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const tasaMes = Math.pow(1 + tasaAnual / 100, 1 / 12) - 1;
+
+    let cara = caras[0];
+    let anim, respaldo;
+
+    /* Ahorro: suma simple de aportes, sin prometer rendimiento.
+       Crédito: cuota fija de una anualidad vencida. */
+    function calcular(monto, plazo) {
+      if (cara.id === "ahorro") return monto * plazo * 12;
+      const f = Math.pow(1 + tasaMes, plazo);
+      return (monto * tasaMes * f) / (f - 1);
+    }
+
+    function pintarRiel(input) {
+      const p = ((input.value - input.min) / (input.max - input.min)) * 100;
+      input.style.setProperty("--pos", p + "%");
+    }
+
+    function animarResultado(destino) {
+      cancelAnimationFrame(anim);
+      clearTimeout(respaldo);
+      const escribir = (v) => (elRes.textContent = pesos.format(Math.round(v)));
+
+      // En pestaña oculta el navegador estrangula rAF: la cifra se quedaría atrás.
+      if (quieto || document.hidden) { elRes.dataset.v = destino; escribir(destino); return; }
+
+      const desde = parseFloat(elRes.dataset.v || 0);
+      const t0 = performance.now(), dur = 480;
+      const paso = (t) => {
+        const p = Math.min((t - t0) / dur, 1);
+        escribir(desde + (destino - desde) * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) anim = requestAnimationFrame(paso);
+        else elRes.dataset.v = destino;
+      };
+      anim = requestAnimationFrame(paso);
+      respaldo = setTimeout(() => {
+        if (parseFloat(elRes.dataset.v || 0) !== destino) {
+          cancelAnimationFrame(anim); elRes.dataset.v = destino; escribir(destino);
+        }
+      }, dur + 250);
+    }
+
+    function recalcular() {
+      const monto = +inMonto.value, plazo = +inPlazo.value;
+      $("thMontoTexto").textContent =
+        pesos.format(monto) + (cara.unidadEntrada ? " / " + cara.unidadEntrada : "");
+      $("thPlazoTexto").textContent =
+        plazo + " " + (plazo === 1 ? cara.plazoUnidad.replace(/s$/, "") : cara.plazoUnidad);
+      animarResultado(calcular(monto, plazo));
+      pintarRiel(inMonto);
+      pintarRiel(inPlazo);
+    }
+
+    function aplicarCara(c) {
+      cara = c;
+      inMonto.min = c.min; inMonto.max = c.max; inMonto.step = c.paso; inMonto.value = c.inicial;
+      inPlazo.min = c.plazoMin; inPlazo.max = c.plazoMax; inPlazo.step = 1; inPlazo.value = c.plazoInicial;
+      $("thMontoMin").textContent = pesos.format(c.min);
+      $("thMontoMax").textContent = pesos.format(c.max);
+      $("thPlazoMin").textContent = c.plazoMin + " " + c.plazoUnidad;
+      $("thPlazoMax").textContent = c.plazoMax + " " + c.plazoUnidad;
+      $("thPregunta").textContent = c.pregunta;
+      $("thResEtiqueta").textContent = c.resultadoEtiqueta;
+      $("thNota").textContent = c.nota;
+      elRes.dataset.v = 0; // el cambio de cara arranca la cifra desde cero
+      recalcular();
+    }
+
+    document.querySelectorAll(".th-cara-btn").forEach((b) => {
+      b.addEventListener("click", () => {
+        document.querySelectorAll(".th-cara-btn").forEach((o) => {
+          o.classList.remove("activa");
+          o.setAttribute("aria-pressed", "false");
+        });
+        b.classList.add("activa");
+        b.setAttribute("aria-pressed", "true");
+        aplicarCara(caras.find((c) => c.id === b.dataset.cara));
+      });
+    });
+
+    inMonto.addEventListener("input", recalcular);
+    inPlazo.addEventListener("input", recalcular);
+    aplicarCara(caras[0]);
+  })();
+</script>

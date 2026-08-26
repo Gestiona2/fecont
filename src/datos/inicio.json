@@ -35,7 +35,49 @@
         "sufijo": "%",
         "etiqueta": "De los excedentes al asociado"
       }
-    ]
+    ],
+    "tarjeta": {
+      "_comentario": "Tarjeta interactiva del hero. Dos caras a propósito: el fondo no es solo crédito. La cara de ahorro NO promete rendimientos porque FECONT no ha entregado sus tasas; suma los aportes y lo dice.",
+      "etiqueta": "Pruébelo",
+      "caras": [
+        {
+          "id": "ahorro",
+          "nombre": "Ahorro",
+          "pregunta": "Si ahorro al mes…",
+          "unidadEntrada": "mes",
+          "min": 100000,
+          "max": 1000000,
+          "paso": 50000,
+          "inicial": 300000,
+          "plazoMin": 1,
+          "plazoMax": 10,
+          "plazoInicial": 5,
+          "plazoUnidad": "años",
+          "resultadoEtiqueta": "Tendré acumulado",
+          "nota": "Suma de sus aportes. A eso se agregan los rendimientos que fija la Junta Directiva, que no están incluidos en esta cuenta."
+        },
+        {
+          "id": "credito",
+          "nombre": "Crédito",
+          "pregunta": "Si necesito…",
+          "unidadEntrada": "",
+          "min": 1000000,
+          "max": 30000000,
+          "paso": 500000,
+          "inicial": 12000000,
+          "plazoMin": 6,
+          "plazoMax": 36,
+          "plazoInicial": 24,
+          "plazoUnidad": "meses",
+          "resultadoEtiqueta": "Pagaría al mes",
+          "nota": "Estimación con la tasa de referencia del sector. No es una oferta de crédito."
+        }
+      ],
+      "enlace": {
+        "texto": "Ver el simulador completo",
+        "href": "#simulador"
+      }
+    }
   },
   "credibilidad": {
     "titulo": "Una entidad vigilada, no una aplicación financiera",
@@ -218,12 +260,28 @@
   "pagos": {
     "eyebrow": "Pagos y recaudo",
     "titulo": "Pague sus aportes en línea",
-    "bajada": "Débito directo desde cuentas corrientes, de ahorros o billeteras electrónicas a través de PSE.",
-    "botonPSE": {
-      "texto": "Pagar con PSE",
-      "href": "https://www.psepagos.co/psehostingui/ShowTicketOffice.aspx?ID=4184",
-      "nota": "Servicio Pago Amigo · Red ACH Colombia"
-    },
+    "bajada": "Dos formas de pagar, las mismas que FECONT ya tiene habilitadas. Elija la que le quede cómoda.",
+    "botones": [
+      {
+        "id": "pagoamigo",
+        "titulo": "Pago Amigo",
+        "descripcion": "Red de recaudo de ACH Colombia. Sirve en línea y también para pagar en efectivo en puntos físicos autorizados.",
+        "texto": "Pagar por Pago Amigo",
+        "icono": "store",
+        "href": "https://www.mipagoamigo.com/MPA_WebSite/ServicePayments/StartPayment?id=2630&searchedCategoryId=&searchedAgreementName=FONDO%20DE%20EMPLEADOS%20DE%20CONTADORES%20PUBLICOS",
+        "destacado": true
+      },
+      {
+        "id": "pse",
+        "titulo": "PSE",
+        "descripcion": "Débito directo desde su cuenta corriente, de ahorros o billetera electrónica.",
+        "texto": "Pagar con PSE",
+        "icono": "credit-card",
+        "href": "https://www.psepagos.co/PSEHostingUI/ShowTicketOffice.aspx?ID=4184",
+        "destacado": false
+      }
+    ],
+    "botonesNota": "Ambos se abren en el portal seguro del proveedor de recaudo. FECONT no procesa pagos en este sitio.",
     "cuentasTitulo": "O consigne directamente",
     "cuentasNota": "Todas las cuentas están a nombre de FECONT.",
     "cuentas": [

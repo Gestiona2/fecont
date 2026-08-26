@@ -33,6 +33,28 @@ const { titulo, descripcion = sitio.descripcion, activa = "" } = Astro.props;
     <link rel="preload" href={ruta("/fonts/titulos-variable.woff2")} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={ruta("/fonts/cuerpo-variable.woff2")} as="font" type="font/woff2" crossorigin />
 
+    {/*
+      Las @font-face viven aquí y no en global.css porque el sitio está en una
+      subcarpeta: Vite reescribe las url() del CSS al compilar, pero no en el
+      servidor de desarrollo. Aquí pasan por ruta() y funcionan en ambos.
+    */}
+    <style set:html={`
+      @font-face {
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: 400 900;
+        font-display: swap;
+        src: url("${ruta("/fonts/titulos-variable.woff2")}") format("woff2");
+      }
+      @font-face {
+        font-family: "Nunito";
+        font-style: normal;
+        font-weight: 300 800;
+        font-display: swap;
+        src: url("${ruta("/fonts/cuerpo-variable.woff2")}") format("woff2");
+      }
+    `} />
+
     <meta property="og:title" content={titulo} />
     <meta property="og:description" content={descripcion} />
     <meta property="og:type" content="website" />

@@ -5,21 +5,13 @@
    Montserrat (títulos) y Nunito (cuerpo), del manual de marca.
    Subset latin, variables: un archivo cubre todos los pesos.
    No se cargan desde Google: privacidad y longevidad.
+
+   Las declaraciones @font-face NO van aquí sino en Layout.astro.
+   Motivo: el sitio vive en una subcarpeta (base "/fecont"). Vite reescribe
+   las url() de este archivo al compilar, pero NO en el servidor de
+   desarrollo, así que en local las fuentes daban 404 y se veía la de
+   respaldo del sistema. En el layout pasan por ruta() y funcionan en ambos.
    ============================================================ */
-@font-face {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 400 900;
-  font-display: swap;
-  src: url("/fonts/titulos-variable.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Nunito";
-  font-style: normal;
-  font-weight: 300 800;
-  font-display: swap;
-  src: url("/fonts/cuerpo-variable.woff2") format("woff2");
-}
 
 /* ============================================================
    TOKENS DE MARCA — ver MARCA.md
@@ -309,6 +301,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     linear-gradient(to bottom, rgba(15, 28, 45, 0.7) 0%, transparent 22%, transparent 74%, var(--noche) 100%);
 }
 .hero .container { position: relative; z-index: 2; }
+.hero-cuerpo { display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 56px; align-items: center; }
 .hero-texto { max-width: 780px; }
 .hero h1 {
   font-size: clamp(2.7rem, 6.6vw, 5.3rem);
@@ -356,6 +349,95 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 @media (max-width: 860px) {
   .hero-cifras { grid-template-columns: repeat(2, 1fr); gap: 26px; margin-top: 58px; }
   .hero-scroll { display: none; }
+}
+
+/* ============================================================
+   TARJETA INTERACTIVA DEL HERO
+   ============================================================ */
+.tarjeta-hero {
+  background: rgba(11, 21, 35, 0.55);
+  backdrop-filter: blur(22px) saturate(1.3);
+  -webkit-backdrop-filter: blur(22px) saturate(1.3);
+  border: 1px solid rgba(238, 233, 220, 0.16);
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 0 28px 70px rgba(3, 8, 16, 0.55);
+  position: relative; overflow: hidden;
+  animation: entraTarjeta 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.45s both;
+}
+/* Filo de degradado arriba: la marca sin gritar. */
+.tarjeta-hero::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 2px;
+  background: var(--grad-marca);
+}
+@keyframes entraTarjeta {
+  from { opacity: 0; transform: translateY(26px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta-hero { animation: none; opacity: 1; }
+}
+
+.th-cab { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.th-etiqueta {
+  font-family: var(--font-display); font-size: 0.68rem; font-weight: 800;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--turquesa);
+}
+.th-caras {
+  display: flex; gap: 2px; padding: 3px; border-radius: 999px;
+  background: rgba(238, 233, 220, 0.08);
+}
+.th-cara-btn {
+  padding: 6px 14px; border-radius: 999px;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.78rem;
+  color: rgba(238, 233, 220, 0.6);
+  transition: background 0.28s ease, color 0.28s ease;
+}
+.th-cara-btn:hover { color: var(--hueso); }
+.th-cara-btn.activa { background: var(--turquesa); color: var(--noche); }
+
+.th-pregunta { font-size: 0.86rem; color: rgba(238, 233, 220, 0.62); margin-bottom: 14px; }
+
+.th-campo { margin-bottom: 18px; }
+.th-valor, .th-plazo {
+  display: block; font-family: var(--font-display); font-weight: 800;
+  font-size: 1.25rem; color: var(--hueso); margin-bottom: 9px;
+}
+.th-plazo { font-size: 1.05rem; color: rgba(238, 233, 220, 0.82); }
+.th-topes {
+  display: flex; justify-content: space-between; margin-top: 7px;
+  font-size: 0.68rem; color: rgba(238, 233, 220, 0.4);
+}
+
+.th-resultado {
+  margin-top: 22px; padding-top: 20px;
+  border-top: 1px solid rgba(238, 233, 220, 0.14);
+}
+.th-res-etiqueta {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(238, 233, 220, 0.55);
+}
+.th-res-valor {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(1.7rem, 2.4vw, 2.3rem); line-height: 1.05; margin-top: 6px;
+  letter-spacing: -0.035em;
+  background: var(--grad-marca);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.th-nota { margin-top: 14px; font-size: 0.68rem; line-height: 1.5; color: rgba(238, 233, 220, 0.42); }
+.th-enlace {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: 18px;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.82rem; color: var(--turquesa);
+}
+.th-enlace i, .th-enlace svg { width: 15px; height: 15px; transition: transform 0.3s ease; }
+.th-enlace:hover i, .th-enlace:hover svg { transform: translateX(4px); }
+
+/* Por debajo de 1100px la tarjeta estorba: el hero ya es alto y el simulador
+   completo está a un scroll de distancia. */
+@media (max-width: 1100px) {
+  .hero-cuerpo { grid-template-columns: 1fr; gap: 0; }
+  .tarjeta-hero { display: none; }
 }
 
 /* ============================================================
@@ -613,23 +695,38 @@ input[type="range"]::-moz-range-thumb {
 /* ============================================================
    PAGOS Y CUENTAS
    ============================================================ */
-.pagos-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 54px; align-items: start; }
-.pse-caja {
-  padding: 40px; border-radius: 26px; position: relative; overflow: hidden;
+.pagos-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 54px; align-items: start; }
+
+/* Los dos medios de recaudo que FECONT ya tiene habilitados. No se llaman
+   "Opción 1" y "Opción 2" como en el sitio viejo: eso no le dice nada al
+   asociado. Se explica qué hace cada uno. */
+.pagos-medios { display: grid; gap: 16px; }
+.medio-pago {
+  padding: 28px; border-radius: 22px; position: relative; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+  transition: border-color 0.3s ease, transform 0.32s cubic-bezier(.2,.7,.2,1);
+}
+.medio-pago:hover { transform: translateY(-3px); border-color: var(--border-fuerte); }
+.medio-pago.destacado {
   background: linear-gradient(150deg, #12294a 0%, #0b1523 100%);
-  border: 1px solid var(--border);
 }
-.pse-caja::before {
-  content: ""; position: absolute; bottom: -50%; left: -20%;
-  width: 340px; height: 340px; border-radius: 50%;
-  background: var(--grad-suave); filter: blur(80px); opacity: 0.4;
+.medio-pago.destacado::before {
+  content: ""; position: absolute; bottom: -60%; left: -25%;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: var(--grad-suave); filter: blur(80px); opacity: 0.42;
+  pointer-events: none;
 }
-.pse-caja > * { position: relative; z-index: 1; }
-.pse-caja h3 { font-size: 1.5rem; }
-.pse-caja p { color: rgba(238, 233, 220, 0.72); font-size: 0.94rem; margin-top: 12px; }
-.pse-caja .btn { margin-top: 26px; width: 100%; }
+.medio-pago > * { position: relative; z-index: 1; }
+.medio-pago .ico {
+  width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+  background: rgba(0, 186, 194, 0.14); color: var(--turquesa); margin-bottom: 16px;
+}
+.medio-pago .ico i, .medio-pago .ico svg { width: 21px; height: 21px; }
+.medio-pago h3 { font-size: 1.35rem; }
+.medio-pago > p { color: var(--text-soft); font-size: 0.9rem; margin-top: 9px; max-width: 46ch; }
+.medio-pago .btn { margin-top: 22px; }
 .pse-nota {
-  margin-top: 14px; font-size: 0.76rem; color: rgba(238, 233, 220, 0.45); text-align: center;
+  margin-top: 18px; font-size: 0.76rem; color: var(--text-muted); line-height: 1.5;
 }
 
 .cuentas { display: grid; gap: 12px; }
