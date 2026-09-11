@@ -283,11 +283,20 @@ const { hero, credibilidad, portafolio, pertenecer, pagos, transparencia, notici
   <section class="pad" id="noticias">
     <div class="container">
       <div class="cabecera-seccion reveal">
-        <p><span class="aviso-demo"><i data-lucide="info"></i>{noticias.avisoDemo}</span></p>
         <span class="eyebrow"><span class="dot"></span>{noticias.eyebrow}</span>
         <h2 class="section-title">{noticias.titulo}</h2>
         <p class="lead" style="margin-top:20px">{noticias.bajada}</p>
       </div>
+
+      {/* Publicación real, no de ejemplo: va separada de las tarjetas de muestra. */}
+      <a href={ruta(noticias.destacado.href)} class="noticia-destacada reveal">
+        <span class="nd-etiqueta">{noticias.destacado.etiqueta}</span>
+        <h3>{noticias.destacado.titulo}</h3>
+        <p>{noticias.destacado.texto}</p>
+        <span class="nd-cta">{noticias.destacado.cta}<i data-lucide="arrow-right"></i></span>
+      </a>
+
+      <p class="reveal" style="margin-bottom:18px"><span class="aviso-demo"><i data-lucide="info"></i>{noticias.avisoDemo}</span></p>
 
       <div class="noticias-grid" data-stagger>
         {noticias.items.map((n) => (

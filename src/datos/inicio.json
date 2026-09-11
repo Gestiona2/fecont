@@ -354,7 +354,14 @@
     "eyebrow": "Noticias y eventos",
     "titulo": "Lo que pasa en el fondo",
     "bajada": "Asambleas, capacitaciones y encuentros de la comunidad contable.",
-    "avisoDemo": "Contenido de ejemplo para la propuesta de diseño.",
+    "destacado": {
+      "etiqueta": "Actualidad tributaria",
+      "titulo": "Emergencia económica por el terremoto: los decretos, explicados para contadores",
+      "texto": "El Decreto 1261 y los 11 decretos legislativos del 9 de septiembre: qué cambia y qué no para sus clientes.",
+      "href": "/emergencia-economica/",
+      "cta": "Leer el análisis"
+    },
+    "avisoDemo": "Las tres tarjetas de abajo son contenido de ejemplo para la propuesta de diseño.",
     "cta": {
       "texto": "Ver todas las publicaciones",
       "href": "#"

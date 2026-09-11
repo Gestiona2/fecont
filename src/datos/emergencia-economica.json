@@ -1,0 +1,232 @@
+{
+  "_comentario": "Contenido de la landing sobre la emergencia económica por el terremoto de agosto de 2026. Cada afirmación está respaldada por una fuente de la lista 'fuentes'. Si un dato no está verificado, se dice que está pendiente; no se inventa. Actualizar 'actualizado' cada vez que se toque.",
+
+  "meta": {
+    "titulo": "Emergencia económica por el terremoto: los decretos, explicados para contadores | FECONT",
+    "descripcion": "Qué dicen el Decreto 1261 y los 11 decretos legislativos de la emergencia económica por el terremoto del 10 de agosto de 2026, y qué cambia para contadores y empresas."
+  },
+
+  "actualizado": "10 de septiembre de 2026",
+  "actualizadoISO": "2026-09-10",
+
+  "avisoDemo": "Pieza de demostración preparada para la propuesta de sitio web de FECONT. No es un comunicado oficial del fondo.",
+
+  "hero": {
+    "eyebrow": "Actualidad tributaria · Emergencia 2026",
+    "titulo": "La emergencia económica por el terremoto,",
+    "tituloAcento": "decreto por decreto",
+    "bajada": "Qué habilitó el Decreto 1261, qué dicen los 11 decretos legislativos del 9 de septiembre y qué le cambia —y qué no— a los contadores y a las empresas que asesoran.",
+    "datos": [
+      { "valor": "1261", "etiqueta": "Decreto que declara la emergencia" },
+      { "valor": "15", "etiqueta": "Departamentos cobijados" },
+      { "valor": "30", "etiqueta": "Días calendario de vigencia" },
+      { "valor": "11", "etiqueta": "Decretos legislativos expedidos" }
+    ]
+  },
+
+  "clave": {
+    "etiqueta": "Lo primero",
+    "titulo": "Hasta hoy no hay impuestos nuevos",
+    "texto": "Ni el Decreto 1261 ni los 11 decretos legislativos del 9 de septiembre crean un IVA adicional, un impuesto al patrimonio o un tributo general. La emergencia habilita al Gobierno para hacerlo mientras esté vigente, pero a la fecha no lo ha hecho.",
+    "matiz": "Lo que sí hay son alivios que los municipios y departamentos pueden conceder —exenciones de predial e ICA, condonación de deudas— y una modalidad especial de Obras por Impuestos."
+  },
+
+  "contexto": {
+    "titulo": "Qué pasó",
+    "texto": "El 10 de agosto de 2026 un terremoto de magnitud 7,4, con epicentro en San José del Palmar (Chocó), golpeó el occidente del país. Nueve días después el Gobierno declaró el Estado de Emergencia Económica, Social y Ecológica para atender sus efectos.",
+    "cifras": [
+      { "valor": "331", "etiqueta": "Personas fallecidas" },
+      { "valor": "36.326", "etiqueta": "Viviendas destruidas" },
+      { "valor": "296.738", "etiqueta": "Familias damnificadas" }
+    ],
+    "notaCifras": "Cifras preliminares reportadas por El Espectador en septiembre de 2026. Al 19 de agosto, el propio Decreto 1261 registraba 314 fallecidos: los reportes se han ido actualizando."
+  },
+
+  "linea": {
+    "titulo": "Línea de tiempo",
+    "hitos": [
+      { "fecha": "10 ago 2026", "titulo": "Terremoto de magnitud 7,4", "texto": "Epicentro en San José del Palmar, Chocó. Afectación directa en 471 municipios.", "estado": "hecho" },
+      { "fecha": "19 ago 2026", "titulo": "Decreto 1261", "texto": "Declara la emergencia en 15 departamentos por 30 días calendario desde su publicación. Lo firman el presidente Abelardo de la Espriella y todo el gabinete.", "estado": "hecho" },
+      { "fecha": "21 ago 2026", "titulo": "Llega a la Corte Constitucional", "texto": "Control automático de constitucionalidad. Magistrado ponente: Juan Carlos Cortés González.", "estado": "hecho" },
+      { "fecha": "9 sep 2026", "titulo": "11 decretos legislativos", "texto": "Del 1379 al 1389: Fondo Milagro, alivios territoriales, Obras por Impuestos, energía, salud y educación.", "estado": "hecho" },
+      { "fecha": "Mediados de sep", "titulo": "Vence la emergencia", "texto": "Se cumplen los 30 días calendario. Mientras esté vigente pueden expedirse más decretos.", "estado": "proximo" },
+      { "fecha": "Pendiente", "titulo": "Fallo de la Corte", "texto": "La Corte debe decidir si el Decreto 1261 se ajusta a la Constitución. Cada decreto legislativo tiene además su propio control.", "estado": "pendiente" }
+    ]
+  },
+
+  "decretos": {
+    "titulo": "Los 11 decretos del 9 de septiembre",
+    "bajada": "Todos son decretos legislativos: tienen fuerza de ley y la Corte los revisa uno por uno. Filtre por el tema que le interesa.",
+    "temas": [
+      { "id": "todos", "nombre": "Todos" },
+      { "id": "tributario", "nombre": "Tributario y fiscal" },
+      { "id": "territorial", "nombre": "Territorial" },
+      { "id": "servicios", "nombre": "Energía y salud" },
+      { "id": "educacion", "nombre": "Educación" },
+      { "id": "tramites", "nombre": "Trámites y datos" }
+    ],
+    "items": [
+      {
+        "numero": "1379", "tema": "tributario", "destacado": true,
+        "titulo": "Fondo Milagro",
+        "hace": "Crea un patrimonio autónomo, administrado por una fiduciaria pública, que centraliza presupuesto nacional, donaciones públicas y privadas, cooperación internacional, crédito público y aportes territoriales para pagar directamente la atención y la reconstrucción.",
+        "leSirve": "Empresas que quieran donar y asesores que las acompañan. Ojo: a la fecha no se ha reglamentado un beneficio tributario específico por donar al fondo."
+      },
+      {
+        "numero": "1380", "tema": "servicios",
+        "titulo": "Reconexión de energía",
+        "hace": "Permite que el Fondes haga aportes no reembolsables a empresas de servicio eléctrico que acrediten daños por el sismo, para reconectar a cerca de 1,5 millones de usuarios.",
+        "leSirve": "Usuarios afectados: el costo extraordinario de la reconexión no se traslada a la factura."
+      },
+      {
+        "numero": "1381", "tema": "territorial",
+        "titulo": "Inversión entre territorios",
+        "hace": "Suspende de forma temporal el requisito de beneficio directo para que un municipio o departamento con mayor capacidad financiera invierta en otro afectado.",
+        "leSirve": "Entidades territoriales y quienes llevan su contabilidad pública."
+      },
+      {
+        "numero": "1382", "tema": "tributario", "destacado": true,
+        "titulo": "Alivios fiscales territoriales",
+        "hace": "Faculta a concejos y asambleas para conceder exenciones de predial, ICA y delineación urbana a quienes tengan daños directos, y a alcaldías y gobernaciones para condonar capital, intereses y sanciones o pactar pagos diferidos sin intereses. Flexibiliza créditos de tesorería hasta el 31 de diciembre de 2027, con tope del 15 % de los ingresos corrientes.",
+        "leSirve": "Contribuyentes con inmuebles o establecimientos afectados. Los alivios no son automáticos: cada concejo o asamblea tiene que aprobarlos."
+      },
+      {
+        "numero": "1383", "tema": "servicios",
+        "titulo": "Salud y pensiones",
+        "hace": "Permite el acceso excepcional a excedentes del Fonpet y amplía el uso de excedentes del sector salud.",
+        "leSirve": "Garantiza el pago a pensionados de las entidades territoriales afectadas."
+      },
+      {
+        "numero": "1384", "tema": "tramites",
+        "titulo": "Menos trámites",
+        "hace": "Simplifica procedimientos administrativos en las zonas afectadas y elimina copias y autenticaciones innecesarias.",
+        "leSirve": "Personas y empresas que deben gestionar documentos en medio de la emergencia."
+      },
+      {
+        "numero": "1385", "tema": "tramites",
+        "titulo": "Datos para identificar afectados",
+        "hace": "Autoriza al DANE a suministrar información estadística protegida cuando sea estrictamente necesaria para identificar a la población afectada.",
+        "leSirve": "Entidades que focalizan ayudas."
+      },
+      {
+        "numero": "1386", "tema": "educacion",
+        "titulo": "Clases en espacios alternativos",
+        "hace": "Autoriza prestar el servicio educativo en espacios alternativos seguros y en modalidades remotas.",
+        "leSirve": "Colegios y estudiantes de las zonas afectadas."
+      },
+      {
+        "numero": "1387", "tema": "educacion",
+        "titulo": "Auditorías de matrícula",
+        "hace": "Suspende para 2026 las consecuencias financieras de las auditorías del Simat en 5.309 sedes de 47 entidades certificadas.",
+        "leSirve": "Secretarías de educación: los recursos no se recortan por la caída de matrícula que causó el sismo."
+      },
+      {
+        "numero": "1388", "tema": "educacion",
+        "titulo": "Calendario escolar",
+        "hace": "Permite reorganizar el calendario escolar hasta el 31 de diciembre sin afectar los derechos laborales de docentes.",
+        "leSirve": "Instituciones educativas y su personal."
+      },
+      {
+        "numero": "1389", "tema": "tributario", "destacado": true,
+        "titulo": "Obras por Impuestos para la reconstrucción",
+        "hace": "Crea una modalidad especial y temporal de Obras por Impuestos en los municipios cobijados por la emergencia, sin exigir que sean Zomac o PDET. Sirve para vivienda de interés social, educación, salud, agua, energía, vías, conectividad y gestión del riesgo.",
+        "leSirve": "Empresas que quieran pagar parte de su impuesto de renta ejecutando obras en las zonas afectadas. Ver el detalle abajo."
+      }
+    ]
+  },
+
+  "contador": {
+    "eyebrow": "Para el contador",
+    "titulo": "Lo que sí le toca revisar con sus clientes",
+    "bloques": [
+      {
+        "icono": "hard-hat",
+        "decreto": "Decreto 1389",
+        "titulo": "Obras por Impuestos, modalidad reconstrucción",
+        "puntos": [
+          "Pueden participar empresas con ingresos anuales superiores a 33.610 UVT, cerca de $1.760 millones.",
+          "Pueden destinar hasta el 50 % de su impuesto de renta a proyectos de reconstrucción.",
+          "El cupo total de Obras por Impuestos para 2026 es de $1,14 billones, sumando la modalidad ordinaria y la de reconstrucción.",
+          "Mínimo el 35 % del cupo de la modalidad especial debe ir a municipios de quinta y sexta categoría.",
+          "Los conceptos de viabilidad se emiten en 15 días hábiles.",
+          "Nadie puede usar el mecanismo para reconstruir activos propios ni en beneficio particular."
+        ],
+        "pendiente": "Aún no hay claridad pública sobre la fecha de vencimiento de la modalidad especial."
+      },
+      {
+        "icono": "landmark",
+        "decreto": "Decreto 1382",
+        "titulo": "Predial, ICA y deudas con el municipio",
+        "puntos": [
+          "El decreto faculta; no concede. Las exenciones de predial, ICA y delineación urbana las aprueba cada concejo municipal o asamblea departamental.",
+          "Aplican para personas y establecimientos con daños directos en sus inmuebles.",
+          "Alcaldías y gobernaciones pueden condonar capital, intereses y sanciones, o pactar pagos diferidos en cuotas sin intereses.",
+          "Conviene seguir los acuerdos y ordenanzas que expida cada municipio donde tenga clientes."
+        ],
+        "pendiente": "La duración de las exenciones depende de lo que apruebe cada territorio."
+      },
+      {
+        "icono": "piggy-bank",
+        "decreto": "Decreto 1379",
+        "titulo": "Donaciones al Fondo Milagro",
+        "puntos": [
+          "El fondo recibe donaciones públicas y privadas y las administra una fiduciaria pública vigilada por la Superintendencia Financiera.",
+          "Los recursos quedan protegidos por inembargabilidad y se giran directamente a quien ejecuta."
+        ],
+        "pendiente": "A la fecha no se ha reglamentado un beneficio tributario específico —deducción o descuento— por donar al fondo. No lo prometa a un cliente hasta que exista."
+      }
+    ]
+  },
+
+  "comparativo": {
+    "titulo": "No confunda las tres emergencias",
+    "bajada": "Es la tercera emergencia económica en nueve meses, y cada una tiene un estado jurídico distinto. Muchos contenidos en internet las mezclan.",
+    "columnas": ["", "Diciembre 2025", "Febrero 2026", "Agosto 2026"],
+    "filas": [
+      { "rotulo": "Causa", "valores": ["Caída de la ley de financiamiento", "Inundaciones por la ola invernal", "Terremoto del 10 de agosto"] },
+      { "rotulo": "Decreto madre", "valores": ["1390 de 2025", "150 de 2026", "1261 de 2026"] },
+      { "rotulo": "Gobierno", "valores": ["Gustavo Petro", "Gustavo Petro", "Abelardo de la Espriella"] },
+      { "rotulo": "Territorio", "valores": ["Todo el país", "8 departamentos", "15 departamentos"] },
+      { "rotulo": "Medidas tributarias", "valores": ["IVA, patrimonio, renta y otros (Decreto 1474)", "Impuesto al patrimonio temporal para personas jurídicas (Decreto 173)", "Ninguna nueva a la fecha"] },
+      { "rotulo": "Estado ante la Corte", "valores": ["Inexequible desde el 9 de abril de 2026", "Exequible con condiciones: limitada a 181 municipios", "En revisión"] }
+    ],
+    "estados": ["caida", "condicionada", "vigente"]
+  },
+
+  "vigilar": {
+    "titulo": "Qué vigilar en los próximos días",
+    "items": [
+      { "icono": "calendar-clock", "titulo": "El vencimiento", "texto": "La emergencia dura 30 días calendario desde su publicación. Mientras siga vigente pueden salir más decretos, incluidos tributarios." },
+      { "icono": "scale", "titulo": "El fallo de la Corte", "texto": "Si la Corte declara inexequible el Decreto 1261, los decretos que se apoyan en él pierden su fundamento. Ya pasó con la emergencia de diciembre." },
+      { "icono": "file-text", "titulo": "Acuerdos y ordenanzas", "texto": "Los alivios del Decreto 1382 se vuelven reales cuando cada concejo o asamblea los aprueba. Ahí está el detalle que le importa a su cliente." },
+      { "icono": "list-checks", "titulo": "La reglamentación", "texto": "Varios puntos —la vigencia de Obras por Impuestos para la reconstrucción, un posible beneficio por donar al Fondo Milagro— siguen sin reglamentar." }
+    ]
+  },
+
+  "cierre": {
+    "titulo": "Un fondo que lee la norma",
+    "tituloAcento": "por usted",
+    "bajada": "En FECONT seguimos la actualidad tributaria que afecta el ejercicio de nuestros asociados. Si esta emergencia toca a sus clientes, hablemos.",
+    "ctaPrimario": { "texto": "Escribir por WhatsApp", "href": "https://wa.me/573193227069" },
+    "ctaSecundario": { "texto": "Volver al inicio", "href": "/" }
+  },
+
+  "avisoLegal": "Contenido informativo con corte al 10 de septiembre de 2026. No constituye asesoría tributaria ni jurídica. Las normas de emergencia cambian con rapidez y están sujetas al control de la Corte Constitucional: verifique siempre el texto oficial de cada decreto antes de tomar decisiones.",
+
+  "fuentes": {
+    "titulo": "Fuentes",
+    "bajada": "Cada dato de esta página sale de una de estas publicaciones.",
+    "items": [
+      { "medio": "Actualícese", "titulo": "El Gobierno declara la emergencia económica en 15 departamentos por el terremoto mediante el Decreto 1261", "url": "https://actualicese.com/el-gobierno-declara-la-emergencia-economica-en-15-departamentos-por-el-terremoto-mediante-el-decreto-1261/" },
+      { "medio": "Portafolio", "titulo": "Qué dicen los 11 decretos de la emergencia económica que firmó De La Espriella", "url": "https://www.portafolio.co/economia/gobierno/estos-son-los-11-decretos-de-la-emergencia-economica-que-firmo-de-la-espriella-obras-por-impuestos-y-otras-medidas-502188" },
+      { "medio": "El Espectador", "titulo": "Terremoto en Colombia: así funcionará el Fondo Milagro y otras medidas para la reconstrucción", "url": "https://www.elespectador.com/economia/macroeconomia/asi-funcionara-el-fondo-milagro-y-otras-medidas-para-la-reconstruccion-tras-el-terremoto/" },
+      { "medio": "El Tiempo", "titulo": "Condonación de deudas, reconexión eléctrica y exenciones de predial e ICA: alivios en los decretos de emergencia", "url": "https://www.eltiempo.com/politica/gobierno/condonacion-de-deudas-reconexion-electrica-y-exenciones-de-predial-e-ica-alivios-en-los-decretos-de-emergencia-para-los-afectados-por-el-terremoto-3584984" },
+      { "medio": "Valora Analitik", "titulo": "Obras por Impuestos se abre a zonas del terremoto: Gobierno crea modalidad especial para la reconstrucción", "url": "https://www.valoraanalitik.com/obras-por-impuestos-zonas-terremoto-gobierno-crea-modalidad-especial-reconstruccion/" },
+      { "medio": "ABC Economía", "titulo": "Decretos de emergencia por terremoto en Colombia", "url": "https://abceconomia.co/2026/09/10/decretos-emergencia-terremoto-colombia-fondo-milagro-2026/" },
+      { "medio": "Infobae", "titulo": "Corte Constitucional revisará decreto de emergencia por terremoto: Juan Carlos Cortés será ponente", "url": "https://www.infobae.com/colombia/2026/08/21/corte-constitucional-revisara-decreto-de-emergencia-por-terremoto-juan-carlos-cortes-sera-ponente/" },
+      { "medio": "Siempre al Día", "titulo": "Suspensión del decreto de emergencia económica 2026", "url": "https://siemprealdia.co/colombia/impuestos/decreto-de-emergencia-economica-2026/" },
+      { "medio": "Infobae", "titulo": "Corte declaró exequible la emergencia económica por afectaciones climáticas en ocho departamentos, pero estableció límites", "url": "https://www.infobae.com/colombia/2026/06/25/corte-declaro-exequible-la-emergencia-economica-de-petro-por-afectaciones-climaticas-en-ocho-departamentos-pero-establecio-limites/" },
+      { "medio": "Portafolio", "titulo": "Emergencia económica: los cinco decretos del gobierno Petro y lo que busca cada uno", "url": "https://www.portafolio.co/economia/gobierno/emergencia-economica-estos-son-los-cinco-decretos-expedidos-por-el-gobierno-petro-y-lo-que-busca-cada-uno-488994" }
+    ]
+  }
+}

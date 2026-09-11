@@ -1,41 +1,85 @@
 {
   "_comentario": "Datos que se repiten en todas las páginas: menú, pie, contacto. El contenido de cada página va en su propio archivo (inicio.json…).",
-
   "nombre": "FECONT",
   "razonSocial": "Fondo de Empleados de Contadores Públicos — FECONT",
   "nit": "900.667.935-9",
   "descripcion": "El fondo de empleados de los contadores públicos de Colombia. Ahorro, crédito y bienestar con principios solidarios, desde 2013.",
-
   "whatsapp": "573193227069",
-  "telefonos": ["319 322 7069", "311 489 3635"],
+  "telefonos": [
+    "319 322 7069",
+    "311 489 3635"
+  ],
   "correo": "fdofecont@gmail.com",
   "direccion": "Carrera 50 # 4-19, Bogotá, Colombia",
   "horario": "Lunes a viernes, 9:00 a. m. a 5:00 p. m.",
-
   "vigilancia": "Vigilado por la Superintendencia de la Economía Solidaria",
   "personeria": "Personería jurídica del 17 de octubre de 2013 · Registro No. 00013731",
   "camara": "Cámara de Comercio S0045357",
-
   "menu": [
-    { "id": "portafolio", "texto": "Portafolio", "href": "#portafolio" },
-    { "id": "simulador", "texto": "Simulador", "href": "#simulador" },
-    { "id": "pertenecer", "texto": "Por qué FECONT", "href": "#pertenecer" },
-    { "id": "pagos", "texto": "Pagos", "href": "#pagos" },
-    { "id": "transparencia", "texto": "Transparencia", "href": "#transparencia" },
-    { "id": "noticias", "texto": "Noticias", "href": "#noticias" }
+    {
+      "id": "portafolio",
+      "texto": "Portafolio",
+      "href": "/#portafolio"
+    },
+    {
+      "id": "simulador",
+      "texto": "Simulador",
+      "href": "/#simulador"
+    },
+    {
+      "id": "pertenecer",
+      "texto": "Por qué FECONT",
+      "href": "/#pertenecer"
+    },
+    {
+      "id": "pagos",
+      "texto": "Pagos",
+      "href": "/#pagos"
+    },
+    {
+      "id": "transparencia",
+      "texto": "Transparencia",
+      "href": "/#transparencia"
+    },
+    {
+      "id": "noticias",
+      "texto": "Noticias",
+      "href": "/#noticias"
+    }
   ],
-
-  "ctaPrincipal": { "texto": "Afiliarme", "href": "#afiliacion" },
-
+  "ctaPrincipal": {
+    "texto": "Afiliarme",
+    "href": "/#afiliacion"
+  },
   "redes": [
-    { "nombre": "Facebook", "icono": "facebook", "href": "#" },
-    { "nombre": "LinkedIn", "icono": "linkedin", "href": "#" },
-    { "nombre": "Instagram", "icono": "instagram", "href": "#" }
+    {
+      "nombre": "Facebook",
+      "icono": "facebook",
+      "href": "#"
+    },
+    {
+      "nombre": "LinkedIn",
+      "icono": "linkedin",
+      "href": "#"
+    },
+    {
+      "nombre": "Instagram",
+      "icono": "instagram",
+      "href": "#"
+    }
   ],
-
   "legales": [
-    { "texto": "Política de tratamiento de datos", "href": "#" },
-    { "texto": "Estatutos", "href": "#" },
-    { "texto": "PQRS", "href": "#" }
+    {
+      "texto": "Política de tratamiento de datos",
+      "href": "#"
+    },
+    {
+      "texto": "Estatutos",
+      "href": "#"
+    },
+    {
+      "texto": "PQRS",
+      "href": "#"
+    }
   ]
 }

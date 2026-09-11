@@ -126,7 +126,7 @@ const { titulo, descripcion = sitio.descripcion, activa = "" } = Astro.props;
             <h4>El fondo</h4>
             <div class="pie-lista">
               {sitio.menu.map((item) => <a href={ruta(item.href)}>{item.texto}</a>)}
-              <a href={ruta("#afiliacion")}>Afiliación</a>
+              <a href={ruta("/#afiliacion")}>Afiliación</a>
             </div>
           </div>
         </div>
